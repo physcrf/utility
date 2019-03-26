@@ -1,0 +1,2 @@
+(defpackage :utility
+  (:use :cl))
