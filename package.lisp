@@ -1,2 +1,51 @@
 (defpackage :utility
-  (:use :cl))
+  (:use :cl)
+  (:import-from :alexandria
+		:length=)
+  (:import-from :serapeum
+		:defalias)
+  (:export ;; control-flow
+   :select :select* 
+   :eq* :eql* :equal* :equalp*)
+  (:export ;;function
+   :disjoin :conjoin :compose
+   :curry :rcurry
+   :nested-loop :nested-map)
+  (:export ;; hash-table
+   :list-to-hash-set
+   :copy-hash-table
+   :hash-table-keys :hash-table-values
+   :hash-table-alist :hash-table-plist
+   :alist-hash-table :plist-hash-table
+   :do-hash-table)
+  (:export ;; list
+   :appendf :append1
+   :lastcar :in
+   :plist-keys :plist-values
+   :insert)
+  (:export ;; macro
+   :with-gensyms)
+  (:export ;; number
+   :parse-number :parse-real-number
+   :parse-positive-real-number
+   :bits :unbits
+   :random-in-range)
+  (:export ;; sequence
+   :emptyp :rotate 
+   :random-elt :first-elt :last-elt
+   :split-sequence :split-sequence-if :split-sequence-if-not
+   :runs :batchs :assort :partition
+   :do-each :filter
+   :keep :single
+   :frequencies :scan
+   :length= :length> :length< :length>= :length<=
+   :longer :longest
+   :take :drop)
+  (:export ;; symbols
+   :make-keyword :symbolicate :find-keyword)
+  (:export ;; types
+   :true))
+   
+   
+   
+   

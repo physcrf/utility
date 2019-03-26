@@ -7,3 +7,10 @@
 (import 'serapeum:plist-keys)
 (import 'serapeum:plist-values)
 
+(defmacro insert (position object list)
+  `(progn
+     (if (zerop ,position)
+	 (push ,object ,list)
+	 (push ,object (cdr (nthcdr (1- ,position) ,list))))
+     ,list))
+

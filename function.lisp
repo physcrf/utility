@@ -5,4 +5,23 @@
 (import 'alexandria:compose)
 (import 'alexandria:curry)
 (import 'alexandria:rcurry)
-(import 'serapeum:partial)
+
+;; https://stackoverflow.com/questions/10163298/lisp-macro-or-function-for-nested-loops
+;; Wonderful Code
+(defmacro nested-loop (subscripts dimensions &body body)
+  (when (not (length= dimensions subscripts))
+    (error "nested-loop: dimensions and subscripts are not of same length."))
+  (loop
+     for index in (reverse subscripts)
+     for dim in (reverse dimensions)
+     for x = body then (list y)
+     for y = `(dotimes (,index ,dim) ,@x)
+     finally (return y)))
+
+(defun nested-map (dimensions function)
+  (labels ((fn (args dimensions)
+	     (if dimensions
+		 (dotimes (i (car dimensions))
+		   (fn (cons i args) (cdr dimensions)))
+	       (apply function (reverse args)))))
+    (fn nil dimensions)))

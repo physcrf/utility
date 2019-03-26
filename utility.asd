@@ -6,7 +6,16 @@
 		 :serapeum
 		 :uiop
 		 :parse-number
-		 :split-sequence
-		 :cl-store)
-    :components ((:file "package"))
+		 :split-sequence)
+    :components ((:file "package")
+		 (:file "control-flow" :depends-on ("package"))
+		 (:file "function" :depends-on ("package"))
+		 (:file "hash-table" :depends-on ("package"))
+		 (:file "list" :depends-on ("package"))
+		 (:file "macro" :depends-on ("package"))
+		 (:file "number" :depends-on ("package"))
+		 (:file "sequence" :depends-on ("package"))
+		 (:file "symbols" :depends-on ("package"))
+		 (:file "types" :depends-on ("package"))
+		 ))
 			
