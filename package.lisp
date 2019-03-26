@@ -4,6 +4,9 @@
 		:length=)
   (:import-from :serapeum
 		:defalias)
+  (:export ;; array
+   :indexes-to-row-major-index :row-major-index-to-indexes
+   :indexes-to-column-major-index :column-major-index-to-indexes)
   (:export ;; control-flow
    :select :select* 
    :eq* :eql* :equal* :equalp*)
