@@ -32,7 +32,11 @@
 (defalias cumulate #'scan)
 
 (defun of-length (n sequence)
+  "of-length (n sequence)
+  Checks if the length of sequence is n."
   (= n (length sequence)))
 
 (defun longest (&rest sequences)
+  "longest (&rest sequences)
+  Returns the longest sequence in sequences."
   (funcall #'serapeum:longest sequences))
