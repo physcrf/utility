@@ -27,19 +27,19 @@ professional libraries such as
 [cl-ppcre](https://edicl.github.io/cl-ppcre/) are not included. 
 
 ## Funtion List
-### [array](#array)
+### [array](#array-ref)
 - [indexes-to-row-major-index](#indexes-to-row-major-index)
 - [row-major-index-to-indexes](#row-major-index-to-indexes)
 - [indexes-to-column-major-index](#indexes-to-column-major-index)
 - [column-major-index-to-indexes](#column-major-index-to-indexes)
-### [control flow](#control-flow)
+### [control flow](#control-flow-ref)
 - [select](#select)
 - [select*](#select*)
 - [eq*](#eq*)
 - [eql*](#eql*)
 - [equal*](#equal*)
 - [equalp*](#equalp*)
-### [function](#function)
+### [function](#function-ref)
 - [disjoin](#disjoin)
 - [conjoin](#conjoin)
 - [compose](#compose)
@@ -47,7 +47,7 @@ professional libraries such as
 - [rcurry](#rcurry)
 - [nested-loop](#nested-loop)
 - [nested-map](#nested-map)
-### [hash table](#hash-table)
+### [hash table](#hash-table-ref)
 - [list-hash-set](#list-hash-set)
 - [copy-hash-table](#copy-hash-table)
 - [hash-table-keys](#hash-table-keys)
@@ -57,7 +57,7 @@ professional libraries such as
 - [alist-hash-table](#alist-hash-table)
 - [plist-hash-table](#plist-hash-table)
 - [do-hash-table](#do-hash-table)
-### [list](#list)
+### [list](#list-ref)
 - [appendf](#appendf)
 - [lastcar](#lastcar)
 - [append1](#append1)
@@ -65,15 +65,15 @@ professional libraries such as
 - [plist-keys](#plist-keys)
 - [plist-values](#plist-values)
 - [insert](#insert)
-### [macro](#macro)
+### [macro](#macro-ref)
 - [with-gensyms](#with-gensyms)
-### [number](#number)
+### [number](#number-ref)
 - [parse-number](#parse-number)
 - [parse-real-number](#parse-real-number)
 - [parse-positive-real-number](#parse-positive-real-number)
 - [bits](#bits)
 - [unbits](#unbits)
-### [sequence](#sequence)
+### [sequence](#sequence-ref)
 - [emptyp](#emptyp)
 - [rotate](#rotate)
 - [random-elt](#random-elt)
@@ -101,20 +101,20 @@ professional libraries such as
 - [longest](#longest)
 - [take](#take)
 - [drop](#drop)
-### [stream](#stream)
+### [stream](#stream-ref)
 - [read-file-form](#read-file-form)
 - [read-file-forms](#read-file-forms)
 - [read-file-line](#read-file-line)
 - [read-file-lines](#read-file-lines)
 - [read-file-string](#read-file-string)
-### [symbols](#symbols)
+### [symbols](#symbols-ref)
 - [make-keyworkd](#make-keyworkd)
 - [symbolicate](#symbolicate)
 - [find-keyword](#find-keyword)
-### [types](#types)
+### [types](#types-ref)
 - [true](#true)
 ## Function Reference
-### <span id="array"> array </span>
+### <span id="array-ref"> array </span>
 #### <span id="indexes-to-row-major-index"> indexes-to-row-major-index (dimensions &rest subscripts) </span>
 This function is written in reference to
 [cffi](https://common-lisp.net/project/cffi/)'s internal utilities
@@ -155,7 +155,7 @@ Examples:
 (column-major-index-to-indexes 6 '(4 5)) ;; => (2 1)
 (column-major-index-to-indexes 1 '(2 2)) ;; => (1 0)
 ```
-### Control Flow
+### <span id="control-flow-ref"> control flow </span>
 #### <span id="select"> select (keyform &body clauses) </span>
 Alias of `serapeum:select`, see
 [serapeum](https://github.com/ruricolist/serapeum/blob/master/REFERENCE.md).
@@ -221,7 +221,69 @@ same as [`eq*`](#eq*) except using `cl:eql` to compare.
 Alias of `serapeum:equal*`, variadic version of `cl:equal`. Usage is the
 same as [`eq*`](#eq*) except using `cl:equal` to compare.
 
-#### <span id="equalp*> equalp* (&rest objects) </span>
+#### <span id="equalp*"> equalp* (&rest objects) </span>
 Alias of `serapeum:equalp*`, variadic version of `cl:equalp`. Usage is
 the same as [`eq*`](#eq*) except using `cl:equalp` to compare.
 
+
+### <span id="function-ref"> function </span>
+#### <span id="disjoin"> disjoin (predicate &rest more-predicates) </span>
+Alias of `alexandria:disjoin`, see
+[Alexandria](https://common-lisp.net/project/alexandria/draft/alexandria.html). Returns
+a function that applies each of `predicate` and `more-predicate`
+functions in turn to its arguments, returning the primary value of the
+first predicate that returns true, without calling the remaining
+predicates. If none of the predicates returns true, `NIL` is returned.
+
+Examples:
+```cl
+(funcall (disjoin #'zerop #'oddp) 0) ;; => T
+(funcall (disjoin #'zerop #'oddp) 1) ;; => T
+(funcall (disjoin #'zerop #'oddp) 2) ;; => NIL
+```
+
+#### <span id="conjoin"> conjoin (predicate &rest more-predicates) </span>
+Alias of `alexandria:disjoin`, returns a function that applies each of
+`predicate` and `more-predicate` functions in turn to its arguments,
+returning `NIL` if any of the predicates returns false, without
+calling the remaining predicates. If none of the predicates returns
+false, returns the primary value of the last predicate.
+
+Examples:
+```cl
+(funcall (conjoin #'zerop #'evenp) 0) ;; => T
+(funcall (conjoin #'zerop #'evenp) 1) ;; => NIL
+(funcall (conjoin #'zerop #'evenp) 2) ;; => NIL
+```
+
+#### <span id="compose"> compose (function &rest more-functions) </span>
+Alias of `alexandria:compose`, returns a function composed of
+`function` and `more-functions` that applies its arguments to to each
+in turn, starting from the rightmost of more-functions, and then
+calling the next one with the primary value of the last.
+
+Examples:
+```cl
+(funcall (compose #'exp #'1+) 1) ;; => exp (1+1) = 7.389056
+(funcall (compose #'1+ #'exp) 1) ;; => 1+exp(1) = 3.7182817
+```
+
+#### <span id="curry"> curry (function &rest arguments) </span>
+Alias of `alexandria:curry`, returns a function that applies
+`arguments` and the arguments it is called with to `function`.
+
+Examples:
+```cl
+(funcall (curry #'list 'a) 'b) ;; => (A B)
+(funcall (curry #'list 'a 'b) 'c) ;; => (A B C)
+```
+
+#### <span id="rcurry"> rcurry (function &rest arguments) </span>
+Alias of `alexandria:rcurry`, returns a function that applies the
+`arguments` it is called with and arguments to `function`.
+
+Examples:
+```cl
+(funcall (rcurry #'list 'a) 'b) ;; => (B A)
+(funcall (rcurry #'list 'a 'b) 'c) ;; => (C A B)
+```
