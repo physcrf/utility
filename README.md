@@ -15,8 +15,8 @@ need to choose the needed function by own hand.
 
 Therefore I just collect functions from multiple libraries into one
 single package for my own use. Some functions are also renamed or
-rewrapped to fit my convention. Also, there are some codes are written
-by my own. Right now, used libraries are
+rewrapped to fit my convention. Also, there are some codes written by
+my own. Right now, used libraries are
 - [Alexandria](https://common-lisp.net/project/alexandria/)
 - [serapeum](https://github.com/ruricolist/serapeum)
 - [uiop](https://common-lisp.net/project/asdf/uiop.html)
@@ -830,4 +830,72 @@ If `n` is larger than the length of `sequence`, returns an empty
 sequence.
 
 If `n` is negative, then |`n`| elements are dropped.
+
+### <span id="stream-ref"> stream </span>
+#### <span id="read-file-form"> read-file-form (file &rest keys &key (at 0) &allow-other-keys) </span>
+Alias of `uiop:read-file-form`, opens input `file` with option `keys`
+(except `at`), and read its contents as per `uiop:slurp-stream-form`
+with given at specifier. beware: be sure to use `uiop:with-safe-io-syntax`,
+or some variant thereof.
+
+#### <span id="read-file-forms"> read-file-forms (file &rest keys &key count &allow-other-keys) </span>
+Alias of `uiop:read-file-forms`, opens input `file` with option `keys`
+(except `count`), and read its contents as per
+`uiop:slurp-stream-forms` with given `count`. beware: be sure to use
+`uiop:with-safe-io-syntax`, or some variant thereof.
+
+#### <span id="read-file-line"> read-file-line (file &rest keys &key (at 0) &allow-other-keys) </span>
+Alias of `uiop:read-file-line`, opens input `file` with option `keys`
+(except `at`), and read its contents as per `uiop:slurp-stream-line`
+with given at specifier. beware: be sure to use
+`uiop:with-safe-io-syntax`, or some variant thereof.
+
+#### <span id="read-file-lines"> read-file-lines (file &rest keys &key count &allow-other-keys) </span>
+Alias of `uiop:read-file-lines`, opens input `file` with option
+`keys`, read its contents as a list of lines. beware: be sure to use
+`uiop:with-safe-io-syntax`, or some variant thereof.
+
+#### <span id="read-file-string"> read-file-string  (file &rest keys) </span>
+Alias of `uiop:read-file-string`, open input `file` with option
+`keys`, read its contents as a string.
+
+
+
+
+### <span id="symbol-ref"> symbol </span>
+#### <span id="make-keyword"> make-keyword (name) </span>
+Alias of `alexandria:make-keyword`, interns the string designated by
+`name` in the keyword package.
+
+Examples:
+```cl
+(make-keyword "HELLO") ;; => :HELLO
+(make-keyword "hello") ;; => :|hello|
+```
+
+#### <span id="symbolicate"> symbolicate (&rest things) </span>
+Alias of `alexandria:symbolicate`, concatenates together the names of
+some strings and symbols, producing a symbol in the current package.
+
+Examples:
+```cl
+(symbolicate "HELLO") ;; => HELLO
+(symbolicate "HELLO" '- 'world) ;; => HELLO-WORLD
+```
+
+#### <span id="find-keyword"> find-keyword (string) </span>
+Alias of `serapeum:find-keyword`, if `string` has been interned as a
+keyword, return it.
+
+Examples:
+```cl
+(make-keyword "HELLO")
+
+(find-keyword "HELLO") ;; => :HELLO, :EXTERNAL
+(find-keyword "WORLD") ;; => NIL, NIL
+```
+
+### <span id="types-ref"> types </span>
+#### <span id="true"> true (x) </span>
+Alias of `serapeum:true`, if `x` is `NIL`, return `NIL`, otherwise return `T`.
 
