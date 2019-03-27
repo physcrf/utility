@@ -15,12 +15,13 @@
    :curry :rcurry
    :nested-loop :nested-map)
   (:export ;; hash-table
-   :list-hash-set
+   ;; :list-hash-set
+   :do-hash-table
+   :dict :dict*
    :copy-hash-table
    :hash-table-keys :hash-table-values
    :hash-table-alist :hash-table-plist
-   :alist-hash-table :plist-hash-table
-   :do-hash-table)
+   :alist-hash-table :plist-hash-table)
   (:export ;; list
    :appendf :append1
    :lastcar :in

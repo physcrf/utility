@@ -5,13 +5,13 @@ My utility collection
 There are serveral external generic utility libraries, such as famous
 [Alexandria](https://common-lisp.net/project/alexandria/) in Common
 Lisp world. However, usually `Alexandria` alone is not enough for
-progeraming, and one need to import other libraries such as de facto
-standard utility
-[uiop](https://common-lisp.net/project/asdf/uiop.html) or
-[serapeum](https://github.com/ruricolist/serapeum), a large supplement
-to `Alexandria`. At the same time, sometimes there are name conflicts
-between different packages and one need to choose the needed function
-by own hand. 
+progeraming, and one need to import other libraries such as the de
+facto standard utility
+[uiop](https://common-lisp.net/project/asdf/uiop.html) or a large
+supplement to `Alexandria`
+[serapeum](https://github.com/ruricolist/serapeum). At the same time,
+sometimes there are name conflicts between different packages and one
+need to choose the needed function by own hand.
 
 Therefore I just collect functions from multiple libraries into one
 single package for my own use. Some functions are also renamed to fit
@@ -48,7 +48,9 @@ professional libraries such as
 - [nested-loop](#nested-loop)
 - [nested-map](#nested-map)
 ### [hash table](#hash-table-ref)
-- [list-hash-set](#list-hash-set)
+- [dict](#dict)
+- [dict*](#dict*)
+- [do-hash-table](#do-hash-table)
 - [copy-hash-table](#copy-hash-table)
 - [hash-table-keys](#hash-table-keys)
 - [hash-table-values](#hash-table-values)
@@ -56,7 +58,6 @@ professional libraries such as
 - [hash-table-plist](#hash-table-plist)
 - [alist-hash-table](#alist-hash-table)
 - [plist-hash-table](#plist-hash-table)
-- [do-hash-table](#do-hash-table)
 ### [list](#list-ref)
 - [appendf](#appendf)
 - [lastcar](#lastcar)
@@ -287,3 +288,151 @@ Examples:
 (funcall (rcurry #'list 'a) 'b) ;; => (B A)
 (funcall (rcurry #'list 'a 'b) 'c) ;; => (C A B)
 ```
+
+#### <span id="nested-loop"> nested-loop (subscripts dimensions &body body) </span>
+Borrowed from [huaiyuan's answer on
+stackoverflow](https://stackoverflow.com/questions/10163298/lisp-macro-or-function-for-nested-loops).
+This macro do nested loop over dimensions, see examples.
+
+Examples:
+```cl
+(nested-loop (x y) (2 2)
+	(format t "~A ~A~%" x y))
+;; => 
+0 0
+0 1
+1 0
+1 1
+```
+
+#### <span id="nested-map"> nested-map (dimensions function) </span>
+If the dimensions cannot be decided at compile time, for instance we
+want print elements of an array whose dimensions is not known yet,
+then we need a function. This part is also borrowed from [huaiyuan's
+answer on
+stackoverflow](https://stackoverflow.com/questions/10163298/lisp-macro-or-function-for-nested-loops).
+
+Examples:
+```cl
+(nested-map '(2 2) 
+	(lambda (&rest arguments) (print arguments)))
+;; =>
+(0 0) 
+(0 1) 
+(1 0) 
+(1 1) 
+```
+
+### <span id="hash-table-ref"> hash table </span>
+#### <span id="dict"> dict (keys-and-values) </span>
+Alias of `serapeum:dict`, a concise constructor for hash tables.
+
+Examples:
+```cl
+(gethash :c (dict :a 1 :b 2 :c 3)) ;; => 3, T
+```
+
+#### <span id="dict*"> dict* (dict &rest keys-and-values) </span>
+Alias of `serapeum:dict*`, merges new bindings into `dict`. 
+
+Examples:
+```cl
+(defparameter table (dict :a 1 :b 2 :c 3))
+table ;; => #<HASH-TABLE :TEST EQUAL :COUNT 3>
+(dict* table :d 4)
+table ;; => #<HASH-TABLE :TEST EQUAL :COUNT 4>
+```
+
+#### <span id="do-hash-table"> do-hash-table ((key value table &optional return) &body body) </span>
+Alias of `serapeum:do-hash-table`, iterates over hash table `table` in
+no particular order.
+
+Examples:
+```cl
+(let ((table (dict :a 1 :b 2 :c 3)))
+	   (do-hash-table (key value table)
+	     (print (list key value))))
+;; => 
+(:A 1) 
+(:B 2) 
+(:C 3) 
+```
+
+#### <span id="copy-hash-table"> copy-hash-table (table &key key test size rehash-size rehash-threshold) </span>
+Alias of `alexandria:copy-hash-table`, returns a copy of hash table
+table, with the same keys and values as the table. The copy has the
+same properties as the original, unless overridden by the keyword
+arguments.
+
+Before each of the original values is set into the new hash-table, key
+is invoked on the value. As key defaults to `cl:identity`, a shallow
+copy is returned by default.
+
+#### <span id="hash-table-keys"> hash-table-keys (table) </span>
+Alias of `alexandria:hash-table-keys`, returns a list containing the
+keys of hash table `table`.
+
+Examples:
+```cl
+(let ((table (dict :a 1 :b 2 :c 3)))
+	   (hash-table-keys table)) 
+;; => (:C :B :A)
+```
+
+#### <span id="hash-table-values"> hash-table-values (table) </span>
+Alias of `alexandria:hash-table-values`, returns a list containing the
+values of hash table `table`.
+
+Examples:
+```cl
+(let ((table (dict :a 1 :b 2 :c 3)))
+	   (hash-table-values table))
+;; => (3 2 1)
+```
+
+#### <span id="hash-table-alist"> hash-table-alist (table) </span>
+Alias of `alexandria:hash-table-alist`, returns an association list
+containing the keys and values of hash table `table`.
+
+Examples:
+```cl
+(let ((table (dict :a 1 :b 2 :c 3)))
+	    (hash-table-alist table))
+;; => ((:C . 3) (:B . 2) (:A . 1))
+```
+
+#### <span id="hash-table-plist"> hash-table-plist (table) </span>
+Alias of `alexandria:hash-table-plist`, returns a property list
+containing the keys and values of hash table `table`.
+
+Examples:
+```cl
+(let ((table (dict :a 1 :b 2 :c 3)))
+	   (hash-table-plist table))
+;; => (:C 3 :B 2 :A 1)
+```
+
+#### <span id="alist-hash-table"> alist-hash-table (alist &rest hash-table-initargs) </span>
+Alias of `alexandria:alist-hash-table`, returns a hash table
+containing the keys and values of the association list `alist`. Hash
+table is initialized using the `hash-table-initargs`.
+
+Examples:
+```cl
+(alist-hash-table '((:C . 3) (:B . 2) (:A . 1)))
+;; => #<HASH-TABLE :TEST EQL :COUNT 3>
+```
+
+#### <span id="plist-hash-table"> plist-hash-table (plist &rest hash-table-initargs) </span>
+Alias of `alexandria:plist-hash-table`, returns a hash table
+containing the keys and values of the property list `plist`. Hash table
+is initialized using the `hash-table-initargs`.
+
+Examples:
+```cl
+(plist-hash-table '(:C 3 :B 2 :A 1))
+;; => #<HASH-TABLE :TEST EQL :COUNT 3>
+```
+
+
+
