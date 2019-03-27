@@ -7,6 +7,9 @@
 (import 'serapeum:plist-values)
 
 (defmacro insert (position object list)
+  "insert (position object list)
+
+  Inserts object into list at position." 
   `(progn
      (if (zerop ,position)
 	 (push ,object ,list)

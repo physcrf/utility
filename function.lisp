@@ -9,6 +9,9 @@
 ;; https://stackoverflow.com/questions/10163298/lisp-macro-or-function-for-nested-loops
 ;; Wonderful Code
 (defmacro nested-loop (subscripts dimensions &body body)
+  "nested-loop (subscripts dimensions &body body)
+
+  This macro does nested loop over dimensions."
   (when (not (length= dimensions subscripts))
     (error "nested-loop: dimensions and subscripts are not of same length."))
   (loop
@@ -19,6 +22,9 @@
      finally (return y)))
 
 (defun nested-map (dimensions function)
+  "nested-map (dimensions function)
+
+   This function nested loops over dimensions with function."
   (labels ((fn (args dimensions)
 	     (if dimensions
 		 (dotimes (i (car dimensions))
