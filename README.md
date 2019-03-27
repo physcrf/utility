@@ -118,8 +118,8 @@ professional libraries such as
 #### <span id="indexes-to-row-major-index"> indexes-to-row-major-index (dimensions &rest subscripts) </span>
 This function is written in reference to
 [cffi](https://common-lisp.net/project/cffi/)'s internal utilities
-(which are not exported). It transforms `subscripts` into a row major
-index with respect to `dimensions`.
+(which are not exported by `cffi`). It transforms `subscripts` into a
+row major index with respect to `dimensions`.
 
 Examples:
 ```cl
@@ -195,3 +195,33 @@ Examples:
 ```
 
 #### <span id="eq*"> eq* (&rest objects) </span>
+Alias of `serapeum:eq*`, variadic version of `cl:eq`.
+- with no arguments, return `T`.
+- with one arguments, return `T`.
+- with two arguments, same as `cl:eq`.
+- with more arguments, return `T` only if all `objects` are equivalent
+  under `cl:eq`.
+This function is useful when trying to compare more than two arguments.
+
+Examples:
+```cl
+(eq*) ;; => T
+(eq* 'a) ;; => T
+(eq* 'a 'a) ;; => T
+(eq* 'a 'b) ;; => NIL
+(eq* 'a 'a 'a) ;; => T
+(eq* 'a 'a 'b) ;; => NIL
+```
+
+#### <span id="eql*"> eql* (&rest objects) </span>
+Alias of `serapeum:eql*`, variadic version of `cl:eql`. Usage is the
+same as [`eq*`](#eq*) except using `cl:eql` to compare.
+
+#### <span id="equal*"> equal* (&rest objects) </span>
+Alias of `serapeum:equal*`, variadic version of `cl:equal`. Usage is the
+same as [`eq*`](#eq*) except using `cl:equal` to compare.
+
+#### <span id="equalp*> equalp* (&rest objects) </span>
+Alias of `serapeum:equalp*`, variadic version of `cl:equalp`. Usage is
+the same as [`eq*`](#eq*) except using `cl:equalp` to compare.
+
