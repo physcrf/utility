@@ -9,3 +9,5 @@
 (import 'alexandria:alist-hash-table)
 (import 'alexandria:plist-hash-table)
 (import 'serapeum:do-hash-table)
+
+(defalias list-hash-set #'list-to-hash-set)

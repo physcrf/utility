@@ -19,6 +19,7 @@
   (apply #'indexes-to-row-major-index
 	 (cons (reverse dimensions) (reverse subscripts))))
 
-(defun column-major-index-to-indexes (dimensions &rest subscripts)
-  (apply #'row-major-index-to-indexes
-	 (cons (reverse dimensions) (reverse subscripts))))
+(defun column-major-index-to-indexes (index dimensions)
+  (reverse
+   (funcall #'row-major-index-to-indexes
+	    index (reverse dimensions))))

@@ -15,7 +15,7 @@
    :curry :rcurry
    :nested-loop :nested-map)
   (:export ;; hash-table
-   :list-to-hash-set
+   :list-hash-set
    :copy-hash-table
    :hash-table-keys :hash-table-values
    :hash-table-alist :hash-table-plist
@@ -37,7 +37,7 @@
    :emptyp :rotate 
    :random-elt :first-elt :last-elt
    :split-sequence :split-sequence-if :split-sequence-if-not
-   :runs :batchs :assort :partition
+   :runs :batches :assort :partition
    :do-each :filter
    :keep :single
    :frequencies :scan
