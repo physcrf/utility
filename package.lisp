@@ -41,7 +41,8 @@
    :runs :batches :assort :partition
    :do-each :filter
    :keep :single
-   :frequencies :scan
+   :frequencies :cumulate
+   :of-length
    :length= :length> :length< :length>= :length<=
    :longer :longest
    :take :drop)

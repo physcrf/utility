@@ -14,8 +14,9 @@ sometimes there are name conflicts between different packages and one
 need to choose the needed function by own hand.
 
 Therefore I just collect functions from multiple libraries into one
-single package for my own use. Some functions are also renamed to fit
-my convention. Right now, used libraries are
+single package for my own use. Some functions are also renamed or
+rewrapped to fit my convention. Also, there are some codes are written
+by my own. Right now, used libraries are
 - [Alexandria](https://common-lisp.net/project/alexandria/)
 - [serapeum](https://github.com/ruricolist/serapeum)
 - [uiop](https://common-lisp.net/project/asdf/uiop.html)
@@ -60,9 +61,8 @@ professional libraries such as
 - [plist-hash-table](#plist-hash-table)
 ### [list](#list-ref)
 - [appendf](#appendf)
-- [lastcar](#lastcar)
 - [append1](#append1)
-- [in](#in)
+- [lastcar](#lastcar)
 - [plist-keys](#plist-keys)
 - [plist-values](#plist-values)
 - [insert](#insert)
@@ -74,10 +74,12 @@ professional libraries such as
 - [parse-positive-real-number](#parse-positive-real-number)
 - [bits](#bits)
 - [unbits](#unbits)
+- [random-in-range](#random-in-range)
 ### [sequence](#sequence-ref)
 - [emptyp](#emptyp)
 - [rotate](#rotate)
 - [random-elt](#random-elt)
+- [copy-sequence](#copy-sequence)
 - [first-elt](#first-elt)
 - [last-elt](#last-elt)
 - [split-sequence](#split-sequence)
@@ -85,14 +87,15 @@ professional libraries such as
 - [split-sequence-if-not](#split-sequence-if-not)
 - [runs](#run)
 - [batches](#batch)
+- [frequencies](#frequencies)
 - [assort](#assort)
 - [partition](#partition)
 - [do-each](#do-each)
 - [filter](#filter)
 - [keep](#keep)
 - [single](#single)
-- [frequencies](#frequencies)
-- [scan](#scan)
+- [cumulate](#cumulate)
+- [of-length](#of-length)
 - [length=](#length=)
 - [length>](#length>)
 - [length<](#length<)
@@ -435,4 +438,396 @@ Examples:
 ```
 
 
+
+### <span id="list-ref"> list </span>
+#### <span id="appendf"> appendf (place &rest lists) </span>
+Alias of `alexandria:appendf`, modify-macro for `cl:append`. Appends
+`lists` to the `place` designated by the first argument.
+
+Examples:
+```cl
+(defparameter a '(1 2))
+(appendf a '(3 4) '(5 6))
+a ;; => (1 2 3 4 5 6)
+```
+
+#### <span id="append1"> append1 (list item) </span>
+Alias of `serapeum:append1`, append an atom `item` to a list `list`.
+
+Examples:
+```cl
+(append1 '(1 2) 3) ;; => (1 2 3)
+```
+
+#### <span id="lastcar"> lastcar (list) </span>
+Alias of `alexandria:lastcar`, returns the last element of
+`list`. Signals a type-error if `list` is not a proper list.
+It is setfable.
+
+Examples:
+```cl
+(lastcar '(1 2 3)) ;; => 3
+```
+
+#### <span id="plist-keys"> plist-keys (plist) </span>
+Alias of `serapeum:plist-keys`, returns the keys of `plist`.
+
+Examples:
+```cl
+(plist-keys '(:a 1 :b 2 :c 3)) ;; => (:A :B :C)
+```
+
+#### <span id="plist-values"> plist-values (plist) </span>
+Alias of `serapeum:plist-values`, returns the values of `plist`.
+
+Examples:
+```cl
+(plist-values '(:a 1 :b 2 :c 3)) ;; => (1 2 3)
+```
+
+#### <span id="insert"> insert (position object list) </span>
+Inserts `object` into `list` at `position`.
+
+Examples:
+```cl
+(defparameter a '(1 3))
+(insert 1 2 a)
+a ;; => (1 2 3)
+```
+### <span id="macro-ref"> macro </span>
+#### <span id="with-gensyms"> with-gensyms (names &body) </span>
+Alias of `alexandria:with-gensyms`, binds each variable named by a
+symbol in names to a unique symbol around forms. Each of names must
+either be either a symbol, or of the form:
+
+```cl
+(symbol string-designator)
+```
+
+Bare symbols appearing in names are equivalent to:
+
+```cl
+(symbol symbol)
+```
+
+The string-designator is used as the argument to gensym when
+constructing the unique symbol the named variable will be bound to.
+
+### <span id="number-ref"> number </span>
+#### <span id="parse-number"> parse-number (string &key start end radix) </span>
+Alias of `parse-number:parse-number`, parses `string` into number.
+See [parse-number](http://cliki.net/parse-number).
+
+Examples:
+```cl
+(parse-number "123") ;; => 123
+(parse-number "123" :start 1) ;; => 23
+(parse-number "123" :end 1) ;; => 1
+(parse-number "123" :radix 4) ;; => 1x4**2 + 2x4 + 3 = 27
+(parse-number "12.3") ;; => 12.3
+(parse-number "1.23e1") ;; => 12.3
+(parse-number "1.23d1") ;; => 12.3d0
+(parse-number "-12.3") ;; -12.3
+(parse-number "#C(12 3)") ;; => C(12 3)
+(parse-number "#C(12.0 3)") ;; => C(12.0 3.0)
+```
+
+#### <span id="parse-real-number"> parse-real-number (string &key start end radix) </span>
+Alias of `parse-number:parse-real-number`, parses `string` into real
+number.  Like [parse-number](#parse-number), but it will signal an
+error when encounter complex number.
+
+#### <span id="parse-positive-real-number"> parse-positive-real-number (string &key start end radix) </span>
+Alias of `parse-number:parse-positive-real-number`, parses `string`
+into positive real number. Like [parse-number](#parse-number), but it
+will signal an error when encounter complex and negative number.
+
+#### <span id="bits"> bits (int &key big-endian) </span>
+Alias of `serapeum:bits`, returns a bit vector of the bits in
+`int`. Defaults to little-endian.
+
+Examples:
+```cl
+(bits 4) ;; => #*001
+(bits 4 :big-endian t) ;; => #*100
+```
+
+#### <span id="unbits"> unbits (bits &key big-endian) </span>
+Alias of `serapeum:unbits`, turns a bit vector `bits` into an
+integer. Defaults to little-endian.
+
+Examples:
+```cl
+(unbits #*001) ;; => 4
+(unbits #*001 :big-endian t) ;; => 1
+(unbits #*100 :big-endian t) ;; => 4
+```
+
+#### <span id="random-in-range"> random-in-range (low high) </span>
+Alias of `serapeum:random-in-range`, random number in the range
+[`low`, `high`). `low` and `high` are automatically swapped if `high`
+is less than `low`.
+### <span id="sequence-ref"> sequence </span>
+#### <span id="emptyp"> emptyp (sequence) </span>
+Alias of `alexandria:emptyp`, returns true if `sequence` is an empty
+sequence. Signals an error if `sequence` is not a sequence.
+
+#### <span id="rotate"> rotate (sequence &optional (n 1)) </span>
+Alias of `alexandria:rotate`, returns a sequence of the same type as
+`sequence`, with the elements of sequence rotated by `n`. `n`must be
+an integer.
+
+Note: the original sequence may be destructively altered, and result
+sequence may share structure with it.
+
+Examples:
+```cl
+(rotate '(1 2 3)) ;; => (3 1 2)
+(rotate #(1 2 3)) ;; => #(3 1 2)
+```
+
+#### <span id="random-elt"> random-elt (sequence &key (start 0) end) </span>
+Alias of `alexandria:random-elt`, returns a random element from
+`sequence` bounded by `start` and `end`. Signals an error if the
+sequence is not a proper non-empty sequence, or if `end` and `start`
+are not proper bounding index designators for sequence.
+
+#### <span id="copy-sequence"> copy-sequence (type sequence) </span>
+Alias of `alexandria:copy-sequence`, returns a fresh sequence of `type`,
+which has the same elements as `sequence`.
+
+#### <span id="first-elt"> first-elt (sequence) </span>
+Alias of `alexandria:first-elt`, returns the first element of
+`sequence`. Signals a type-error if `sequence` is not a sequence, or
+is an empty sequence. It is setfable.
+
+#### <span id="last-elt"> last-elt (sequence) </span>
+Alias of `alexandria:last-elt`, returns the last element of
+`sequence`. Signals a type-error if `sequence` is not a proper
+sequence, or is an empty sequence. It is setfable.
+
+#### <span id="split-sequence"> split-sequence (delimiter sequence &key count remove-empty-subseqs from-end (start 0) end (test #'eql) test-not (key #'identity)) </span>
+Alias of `split-sequence:split-sequence`, splits `sequence` into
+sub-sequences according to `delimiter`. Detail documentation refers
+to [split-sequence](https://www.cliki.net/SPLIT-SEQUENCE).
+
+Examples:
+```cl
+(split-sequence :delimter '(a :delimter b :delimter c))
+;; => ((A) (B) (C)), 5
+```
+
+#### <span id="split-sequence-if"> split-sequence-if (predicate sequence &key count remove-empty-subseqs from-end (start 0) end (key #'identity)) </span>
+Alias of `split-sequence:split-sequence-if`, splits `sequence` into 
+sub-sequences according to `predicate`. Detail documentation refers
+to [split-sequence](https://www.cliki.net/SPLIT-SEQUENCE).
+
+Examples:
+```cl
+(split-sequence-if #'evenp '(1 2 3 4 5)) ;; => ((1) (3) (5)), 5
+(split-sequence-if #'oddp '(1 2 3 4 5)) ;; => (NIL (2) (4) NIL), 5
+```
+
+#### <span id="split-sequence-if-not"> split-sequence-if-not (predicate sequence &key count remove-empty-subseqs from-end (start 0) end (key #'identity)) </span>
+Alias of `split-sequence:split-sequence-if-not`, splits `sequence`
+into sub-sequences according to not `predicate`. Detail documentation
+refers to [split-sequence](https://www.cliki.net/SPLIT-SEQUENCE).
+
+Examples:
+```cl
+(split-sequence-if-not #'evenp '(1 2 3 4 5)) ;; => (NIL (2) (4) NIL), 5
+(split-sequence-if-not #'oddp '(1 2 3 4 5)) ;; => ((1) (3) (5)), 5
+```
+
+#### <span id="runs"> runs (sequence &key (start 0) end (key #'identity) (test #'eql)) </span>
+Alias of `serapeum:runs`, returns a list of runs of similar elements
+in `sequence`. The arguments `start`, `end`, and `key` are as for
+`cl:reduce`.
+
+Examples:
+```cl
+(runs '(head tail head head tail)) ;; => ((HEAD) (TAIL) (HEAD HEAD) (TAIL))
+(runs #(head tail head head tail)) ;; => (#(HEAD) #(TAIL) #(HEAD HEAD) #(TAIL))
+```
+
+#### <span id="batches"> batches (sequence n &key (start 0) end even) </span>
+Alias of `serapeum:batches`, return `sequence` in batches of `n`
+elements. If `even` is true, the sequence must be evenly divided
+otherwise an error is signaled.
+
+Examples:
+```cl
+(batches '(0 1 2 3 4 5 6 7 8 9 10) 2) ;; => ((0 1) (2 3) (4 5) (6 7) (8 9) (10))
+(batches #(0 1 2 3 4 5 6 7 8 9 10) 2) ;; => (#(0 1) #(2 3) #(4 5) #(6 7) #(8 9) #(10))
+```
+
+#### <span id="frequencies"> frequencies (sequence &rest hash-table-args &key key &allow-other-keys) </span>
+Alias of `serapeum:frequencies`, returns a hash table with the count
+of each unique item in `sequence`. As a second value, return the length of
+`sequence`.
+
+Examples:
+```cl
+(frequencies '(1 2 2 3 3 3)) ;; => #<HASH-TABLE :TEST EQUAL :COUNT 3>, 6
+(frequencies #(1 2 2 3 3 3)) ;; => #<HASH-TABLE :TEST EQUAL :COUNT 3>, 6
+```
+
+#### <span id="assort"> assort (sequence &key (key #'identity) (test #'eql) (start 0) end) </span>
+Alias of `serapeum:assort`, returns `sequence` assorted by
+`key`. *Seems this function has a bug*.
+
+Examples:
+```cl
+(assort '(0 1 2 3 4 5 6 7 8 9 10) :key #'evenp) 
+;; => ((0 2 4 6 8 10) (1 3 5 7 9))
+```
+
+#### <span id="partition"> partition (predicate sequence &key (start 0) end (key #'identity)) </span>
+Alias of `serapeum:partition`, partition elements of `sequence` into
+those for which `predicate` returns true and false. Returns two
+values, one with each sequence.
+
+Note: `partition` is not just `assort` with an up-or-down
+predicate. `assort` returns its groupings in the order they occur in
+the sequence; `partition` always returns the true elements first.
+
+Examples:
+```cl
+(partition #'evenp '(1 2 3)) ;; => (2), (1 3)
+(partition #'evenp #(1 2 3)) ;; => #(2), #(1 3)
+```
+
+#### <span id="do-each"> do-each ((var sequence &optional return) &body body) </span>
+Alias of `serapeum:do-each`, iterates over the elements of `sequence`,
+a sequence. If `sequence` is a list, this is equivalent to
+`cl:dolist`.
+
+Examples:
+```cl
+(do-each (x #(1 2 3 4))
+	(print x))
+;; => 
+1
+2
+3
+4
+```
+
+#### <span id="filter"> filter (predicate sequence &rest args &key count &allow-other-keys) </span>
+Alias of `serapeum:filter`, almost but not quite an alias of `cl:remove-if-not`.
+
+The difference is the handling of `count`: for `filter`, `count` is
+the number of items to keep, not remove.
+
+Examples:
+```cl
+(remove-if-not #'oddp '(1 2 3 4 5 6) :count 2) ;; => (1 3 5 6)
+
+(filter #'oddp '(1 2 3 4 5 6) :count 2) ;;  => (1 3)
+ ```
+ 
+#### <span id="keep"> keep (item sequence &rest args &key (test #'eql) from-end key count &allow-other-keys) </span>
+Alias of `serapeum:keep`, alias but not quite an alias of `cl:remove`
+with `:test-not` instead of `:test`.
+
+The difference is the handling of `count`. For `keep`, `count` is the
+number of items to keep, not remove.
+
+Examples:
+```cl
+(remove 'x '(x y x y x y) :count 2) ;; => (Y Y X Y)
+(keep 'x '(x y x y x y) :count 2) ;; => (X X)
+```
+
+`keep` becomes useful with the `key` argument:
+```cl
+(keep 'x '((x 1) (y 2) (x 3)) :key #'car) ;; => ((X 1) (X 3))
+```
+
+#### <span id="single"> single (sequence) </span>
+Alias of `serapeum:single`, tests if `sequence` has only one element.
+
+Examples:
+```cl
+(single #()) ;; => NIL
+(single #(1)) ;; => T
+(single #(1 2)) ;; => NIL
+```
+
+#### <span id="cumulate"> cumulate (func sequence &rest args &key from-end (start 0) end initial-values &allow-other-keys) </span>
+Alias of `serapeum:scan`, returns the partial reductions of `sequence`.
+
+Each element of the result sequence is the result of calling
+`cl:reduce` on the elements of the `sequence` up to that point
+(inclusively).
+
+Examples:
+```cl
+(reduce #'+ '(1))       ;; => 1
+(reduce #'+ '(1 2))     ;; => 3
+(reduce #'+ '(1 2 3))   ;; => 6
+(reduce #'+ '(1 2 3 4)) ;; => 10
+(cumulate   #'+ '(1 2 3 4)) ;; => (1 3 6 10)
+```
+
+The result of calling `cumulate` on an empty sequence is always an
+empty sequence, however.
+```cl
+(reduce #'+ '()) ;; => 0
+(cumulate #'+ '()) ;; => NIL
+```
+
+#### <span id="of-length"> of-length (n sequence) </span>
+Checks if the length of `sequence` is `n`.
+
+#### <span id="length="> length= (&rest sequences) </span>
+Alias of `alexandria:length=`, takes any number of sequences or
+integers in any order. Returns true if the length of all the
+sequences and the integers are equal.
+
+#### <span id="length>"> length> (&rest sequences) </span>
+Alias of `serapeum:length>`, checks if each length designator in
+`sequences` longer than the next. A length designator may be a
+sequence or an integer.
+
+#### <span id="length<"> length< (&rest sequences) </span>
+Alias of `serapeum:length<`, checks if each length designator in
+`sequences` shorter than the next. A length designator may be a
+sequence or an integer.
+
+#### <span id="length>="> length>= (&rest sequences) </span>
+Alias of `serapeum:length>=`, checks if each length designator in
+`sequences` not shorter than the next. A length designator may be a
+sequence or an integer.
+
+#### <span id="length<="> length<= (&rest sequences) </span>
+Alias of `serapeum:length<=`, checks if each length designator in
+`sequences` not longer than the next. A length designator may be a
+sequence or an integer.
+
+#### <span id="longer"> longer (x y) </span>
+Alias of `serapeum:longer`, returns the longer of `x` and `y`.
+If `x` and `y` are of equal length, then return `x`.
+
+#### <span id="longest"> longest (&rest sequences) </span>
+Wrapper of `serapeum:longest`, returns the longest sequence in
+`sequences`.
+
+
+#### <span id="take"> take (n sequence) </span>
+Alias of `serapeum:take`, returns at most the first `n` elements of
+`sequence`. New sequence is of same type of `sequence`.
+
+If `n` is larger than length of `sequence`, simply copy `sequence`.
+
+If `n` is negative, then the first |`n`| elements are taken.
+
+#### <span id="drop"> drop (n sequence) </span>
+Alias of `serapeum:drop`, returns all but first `n` elements in
+`sequence`. New sequence is of same type of `sequence`.
+
+If `n` is larger than the length of `sequence`, returns an empty
+sequence.
+
+If `n` is negative, then |`n`| elements are dropped.
 
