@@ -73,6 +73,7 @@ professional libraries such as
 ### [macro](#macro-ref)
 - [with-gensyms](#with-gensyms)
 ### [number](#number-ref)
+- [parse-float](#parse-float)
 - [parse-number](#parse-number)
 - [parse-real-number](#parse-real-number)
 - [parse-positive-real-number](#parse-positive-real-number)
@@ -554,6 +555,15 @@ The string-designator is used as the argument to gensym when
 constructing the unique symbol the named variable will be bound to.
 
 ### <span id="number-ref"> number </span>
+#### <span id="parse-float"> parse-float (string &key start end radix junk-allowed decimal-character exponent-character type) </span>
+Alias of `parse-float:parse-float`, detailed documentation refers to
+[parse-float](https://github.com/soemraws/parse-float).
+
+Examples:
+```cl
+(parse-float "1.23") ;; => 1.23
+(parse-float "1") ;; => 1.0
+```
 #### <span id="parse-number"> parse-number (string &key start end radix) </span>
 Alias of `parse-number:parse-number`, parses `string` into number.
 See [parse-number](http://cliki.net/parse-number).

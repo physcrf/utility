@@ -6,6 +6,7 @@
 		 :serapeum
 		 :uiop
 		 :parse-number
+		 :parse-float
 		 :split-sequence
 		 :cl-ppcre
 		 :str)
