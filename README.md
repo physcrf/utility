@@ -34,6 +34,9 @@ professional libraries such as
 - [indexes-to-column-major-index](#indexes-to-column-major-index)
 - [column-major-index-to-indexes](#column-major-index-to-indexes)
 ### [control flow](#control-flow-ref)
+- [switch](#switch)
+- [cswitch](#cswitch)
+- [eswitch](#eswitch)
 - [select](#select)
 - [select*](#select*)
 - [eq*](#eq*)
@@ -164,6 +167,27 @@ Examples:
 (column-major-index-to-indexes 1 '(2 2)) ;; => (1 0)
 ```
 ### <span id="control-flow-ref"> control flow </span>
+#### <span id="switch"> switch ((object &key test key) &body clauses) </span>
+Alias of `alexandria:switch`, evaluates first matching clause,
+returning its values, or evaluates and returns the values of default
+if no keys match.
+
+Examples:
+```cl
+(switch ("A" :test #'equal)
+	   ("a" 1)
+	   ("A" 2)
+	   (t t)) ;; => 2
+
+```
+
+
+#### <span id="cswitch"> cswitch ((object &key test key) &body clauses) </span>
+Alias of `alexandria:cswitch`, like [switch](#switch), but signals a
+continuable error if no key matches.
+#### <span id="eswitch"> eswitch ((object &key test key) &body clauses) </span>
+Alias of `alexandria:cswitch`, like [switch](#switch), but signals an
+error if no key matches.
 #### <span id="select"> select (keyform &body clauses) </span>
 Alias of `serapeum:select`, see
 [serapeum](https://github.com/ruricolist/serapeum/blob/master/REFERENCE.md).
