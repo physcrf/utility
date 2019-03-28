@@ -1,5 +1,5 @@
 (in-package :utility)
 
-(import 'serapeum:true)
+(defalias 'true 'serapeum:true)
 
 (export '(true))

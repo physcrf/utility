@@ -1,8 +1,8 @@
 (in-package :utility)
 
-(import 'alexandria:make-keyword)
-(import 'alexandria:symbolicate)
-(import 'serapeum:find-keyword)
+(defalias 'make-keyword 	'alexandria:make-keyword)
+(defalias 'symbolicate 		'alexandria:symbolicate)
+(defalias 'find-keyword 	'serapeum:find-keyword)
 
 (export '(make-keyword
 	  symbolicate

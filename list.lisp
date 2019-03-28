@@ -1,10 +1,10 @@
 (in-package :utility)
 
-(import 'alexandria:appendf)
-(import 'serapeum:append1)
-(import 'alexandria:lastcar)
-(import 'serapeum:plist-keys)
-(import 'serapeum:plist-values)
+(defalias 'appendf 		'alexandria:appendf)
+(defalias 'append1 		'serapeum:append1)
+(defalias 'lastcar 		'alexandria:lastcar)
+(defalias 'plist-keys 		'serapeum:plist-keys)
+(defalias 'plist-values 	'serapeum:plist-values)
 
 (defmacro insert (position object list)
   "insert (position object list)

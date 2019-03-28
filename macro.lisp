@@ -1,6 +1,5 @@
 (in-package :utility)
 
-(import 'alexandria:with-gensyms)
-
+(defalias 'with-gensyms 'alexandria:with-gensyms)
 
 (export '(with-gensyms))

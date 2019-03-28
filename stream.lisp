@@ -1,15 +1,15 @@
 (in-package :utility)
 
-(import 'uiop:read-file-form)
-(import 'uiop:read-file-forms)
-(import 'uiop:read-file-line)
-(import 'uiop:read-file-lines)
-(import 'uiop:read-file-string)
+(defalias 'read-file-form 	'uiop:read-file-form)
+(defalias 'read-file-forms 	'uiop:read-file-forms)
+(defalias 'read-file-line 	'uiop:read-file-line)
+(defalias 'read-file-lines 	'uiop:read-file-lines)
+(defalias 'read-file-string 	'uiop:read-file-string)
 
 (defun read-file-data (filename &key (comments "#") (delimiter "\\s+"))
   "read-file-data (filename &key (comments \"#\") (delimiter \"\\s+\"))
 
-  Reads data from file filename and returns as a nested list"
+  Reads data from file filename into a nested list"
   (let* ((lines (read-file-lines filename))
 	 (lines (mapcan (lambda (line)
 			  (let ((clean-line

@@ -41,6 +41,7 @@ professional libraries such as
 - [equal*](#equal*)
 - [equalp*](#equalp*)
 ### [function](#function-ref)
+- [defalias](#defalias)
 - [disjoin](#disjoin)
 - [conjoin](#conjoin)
 - [compose](#compose)
@@ -112,6 +113,8 @@ professional libraries such as
 - [read-file-line](#read-file-line)
 - [read-file-lines](#read-file-lines)
 - [read-file-string](#read-file-string)
+- [read-file-data](#read-file-data)
+- [write-file-data](#write-file-data)
 ### [symbols](#symbols-ref)
 - [make-keyworkd](#make-keyworkd)
 - [symbolicate](#symbolicate)
@@ -232,6 +235,18 @@ the same as [`eq*`](#eq*) except using `cl:equalp` to compare.
 
 
 ### <span id="function-ref"> function </span>
+#### <span id="defalias"> defalias (alias macro-or-function &optional docstring) </span>
+Defines alias of `macro-or-function` with optional `docstring`. If
+`docstring` is not `NIL`, the old documentation would be replaced by
+`docstring`.
+
+Examples:
+```cl
+(defalias 'my-sin 'sin) ;; => MY-SIN
+(my-sin 1) ;; => 0.84147096
+(defalias 'my-sin 'sin "My sine") ;; => MY-SIN
+(documentation 'my-sin 'function) ;; => "My sine"
+``
 #### <span id="disjoin"> disjoin (predicate &rest more-predicates) </span>
 Alias of `alexandria:disjoin`, see
 [Alexandria](https://common-lisp.net/project/alexandria/draft/alexandria.html). Returns
@@ -874,6 +889,10 @@ Alias of `uiop:read-file-string`, open input `file` with option
 
 
 
+#### <span id="read-file-data"> read-file-data (filename &key (comments "#") (delimiter "\\s+")) </span>
+Reads data from file `filename` into a nested (2 dimensional) list.
+#### <span id="write-file-data"> write-file-data (filename data &key (format "~10,8G") (delimiter "~8T") (comments "#") (header "") (footer "")) </span>
+Writes data in a nested (2 dimensional) list into file `filename`.
 ### <span id="symbol-ref"> symbol </span>
 #### <span id="make-keyword"> make-keyword (name) </span>
 Alias of `alexandria:make-keyword`, interns the string designated by

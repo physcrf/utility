@@ -1,12 +1,12 @@
 (in-package :utility)
 
-(import 'parse-number:parse-number)
-(import 'parse-number:parse-real-number)
-(import 'parse-number:parse-positive-real-number)
-(import 'serapeum:bits)
-(import 'serapeum:unbits)
-(import 'serapeum:random-in-range)
-(import 'alexandria:iota)
+(defalias 'parse-number 		'parse-number:parse-number)
+(defalias 'parse-real-number 		'parse-number:parse-real-number)
+(defalias 'parse-positive-real-number 	'parse-number:parse-positive-real-number)
+(defalias 'bits 			'serapeum:bits)
+(defalias 'unbits 			'serapeum:unbits)
+(defalias 'random-in-range 		'serapeum:random-in-range)
+(defalias 'iota 			'alexandria:iota)
 
 (export '(parse-number
 	  parse-real-number
