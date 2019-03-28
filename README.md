@@ -246,7 +246,7 @@ Examples:
 (my-sin 1) ;; => 0.84147096
 (defalias 'my-sin 'sin "My sine") ;; => MY-SIN
 (documentation 'my-sin 'function) ;; => "My sine"
-``
+```
 #### <span id="disjoin"> disjoin (predicate &rest more-predicates) </span>
 Alias of `alexandria:disjoin`, see
 [Alexandria](https://common-lisp.net/project/alexandria/draft/alexandria.html). Returns
