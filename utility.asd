@@ -6,7 +6,9 @@
 		 :serapeum
 		 :uiop
 		 :parse-number
-		 :split-sequence)
+		 :split-sequence
+		 :cl-ppcre
+		 :str)
     :components ((:file "package")
 		 (:file "array" :depends-on ("package"))
 		 (:file "control-flow" :depends-on ("package"))
