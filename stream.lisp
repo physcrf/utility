@@ -27,8 +27,8 @@
 			  (format "~10,8G") (delimiter "~8T") (comments "#")
 			  (header "") (footer ""))
   "write-file-data (filename data &key
-			  (format "~10,8G") (delimiter "~8T") (comments "#")
-			  (header "") (footer ""))"
+			  (format \"~10,8G\") (delimiter \"~8T\") (comments \"#\")
+			  (header \"\") (footer \"\"))"
   (with-open-file (stream filename
 			  :direction :output
 			  :if-exists :supersede
