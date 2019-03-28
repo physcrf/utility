@@ -6,10 +6,12 @@
 (import 'serapeum:bits)
 (import 'serapeum:unbits)
 (import 'serapeum:random-in-range)
+(import 'alexandria:iota)
 
 (export '(parse-number
 	  parse-real-number
 	  parse-positive-real-number
 	  bits
 	  unbits
-	  random-in-range))
+	  random-in-range
+	  iota))

@@ -75,6 +75,7 @@ professional libraries such as
 - [bits](#bits)
 - [unbits](#unbits)
 - [random-in-range](#random-in-range)
+- [iota](#iota)
 ### [sequence](#sequence-ref)
 - [emptyp](#emptyp)
 - [rotate](#rotate)
@@ -567,6 +568,17 @@ Examples:
 Alias of `serapeum:random-in-range`, random number in the range
 [`low`, `high`). `low` and `high` are automatically swapped if `high`
 is less than `low`.
+#### <span id="iota"> iota (n &key (start 0) (start 1)) </span>
+Alias of `alexandria:iota`, returns a list of `n` numbers, starting
+from `start`, each consequtive number being the sum of the previous
+one and `step`. start defaults to 0 and step to 1.
+
+Examples:
+```cl
+(iota 4) ;; => (0 1 2 3)
+(iota 3 :start 1 :step 1.0) ;; => (1.0 2.0 3.0)
+(iota 3 :start -1 :step -1/2) ;; => (-1 -3/2 -2)
+```
 ### <span id="sequence-ref"> sequence </span>
 #### <span id="emptyp"> emptyp (sequence) </span>
 Alias of `alexandria:emptyp`, returns true if `sequence` is an empty
