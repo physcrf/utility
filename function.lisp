@@ -31,3 +31,11 @@
 		   (fn (cons i args) (cdr dimensions)))
 	       (apply function (reverse args)))))
     (fn nil dimensions)))
+
+(export '(disjoin
+	  conjoin
+	  compose
+	  curry
+	  rcurry
+	  nested-loop
+	  nested-map))

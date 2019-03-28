@@ -39,3 +39,8 @@ dimensions."
   (reverse
    (funcall #'row-major-index-to-indexes
 	    index (reverse dimensions))))
+
+(export '(indexes-to-row-major-index
+	  row-major-index-to-indexes
+	  indexes-to-column-major-index
+	  column-major-index-to-indexes))

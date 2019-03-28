@@ -40,3 +40,34 @@
   "longest (&rest sequences)
   Returns the longest sequence in sequences."
   (funcall #'serapeum:longest sequences))
+
+
+(export '(emptyp
+	  rotate
+	  random-elt
+	  copy-sequence
+	  first-elt
+	  last-elt
+	  split-sequence
+	  split-sequence-if
+	  split-sequence-if-not
+	  runs
+	  batches
+	  frequencies
+	  assort
+	  partition
+	  do-each
+	  filter
+	  keep
+	  single
+	  cumulate
+	  of-length
+	  length=
+	  length>
+	  length<
+	  length>=
+	  length<=
+	  longer
+	  longest
+	  take
+	  drop))

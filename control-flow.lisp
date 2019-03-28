@@ -8,3 +8,10 @@
 (import 'serapeum:equalp*)
 
 (setf (macro-function 'select*) (macro-function 'selector))
+
+(export '(select
+	  select*
+	  eq*
+	  eql*
+	  equal*
+	  equalp*))

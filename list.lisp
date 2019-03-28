@@ -16,3 +16,9 @@
 	 (push ,object (cdr (nthcdr (1- ,position) ,list))))
      ,list))
 
+(export '(appendf
+	  append1
+	  lastcar
+	  plist-keys
+	  plist-values
+	  insert))
