@@ -1,3 +1,4 @@
 (defpackage :utility
-  (:use :cl))
+  (:use :cl)
+  (:nicknames :util))
 
