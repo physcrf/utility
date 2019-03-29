@@ -87,6 +87,8 @@ professional libraries such as
 - [random-elt](#random-elt)
 - [copy-sequence](#copy-sequence)
 - [first-elt](#first-elt)
+- [second-elt](#second-elt)
+- [third-elt](#third-elt)
 - [last-elt](#last-elt)
 - [split-sequence](#split-sequence)
 - [split-sequence-if](#split-sequence-if)
@@ -661,6 +663,14 @@ which has the same elements as `sequence`.
 Alias of `alexandria:first-elt`, returns the first element of
 `sequence`. Signals a type-error if `sequence` is not a sequence, or
 is an empty sequence. It is setfable.
+
+#### <span id="second-elt"> second-elt (sequence) </span>
+Returns the second element of `sequence`. Signals a type-error if
+`sequence` is not a sequence, or it is an empty sequence. It is setfable.
+
+#### <span id="third-elt"> third-elt (sequence) </span>
+Returns the third element of `sequence`. Signals a type-error if
+`sequence` is not a sequence, or it is an empty sequence. It is setfable.
 
 #### <span id="last-elt"> last-elt (sequence) </span>
 Alias of `alexandria:last-elt`, returns the last element of

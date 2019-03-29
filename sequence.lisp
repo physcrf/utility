@@ -28,6 +28,43 @@
 (defalias 'take 			'serapeum:take)
 (defalias 'drop 			'serapeum:drop)
 
+(defun not-empty-sequence-p (object)
+  (or (consp object)
+      (and (typep object 'sequence)
+	   (not (emptyp object)))))
+
+(defun second-elt (sequence)
+  "Returns the second element of SEQUENCE. Signals a type-error if
+SEQUENCE is not a sequence, or it is an empty sequence."
+  (if (not-empty-sequence-p sequence)
+      (elt sequence 1)
+      (error 'type-error
+	     :datum sequence
+	     :expected-type '(and sequence (not (satisfies emptyp))))))
+
+(defun (setf second-elt) (object sequence)
+  (if (not-empty-sequence-p sequence)
+      (setf (elt sequence 1) object)
+      (error 'type-error
+	     :datum sequence
+	     :expected-type '(and sequence (not (satisfies emptyp))))))
+
+(defun third-elt (sequence)
+  "Returns the third element of SEQUENCE. Signals a type-error if
+SEQUENCE is not a sequence, or it is an empty sequence."
+  (if (not-empty-sequence-p sequence)
+      (elt sequence 2)
+      (error 'type-error
+	     :datum sequence
+	     :expected-type '(and sequence (not (satisfies emptyp))))))
+
+(defun (setf third-elt) (object sequence)
+  (if (not-empty-sequence-p sequence)
+      (setf (elt sequence 2) object)
+      (error 'type-error
+	     :datum sequence
+	     :expected-type '(and sequence (not (satisfies emptyp))))))
+
 (defun of-length (n sequence)
   "of-length (n sequence)
   Checks if the length of sequence is n."
@@ -44,6 +81,8 @@
 	  random-elt
 	  copy-sequence
 	  first-elt
+	  second-elt
+	  third-elt
 	  last-elt
 	  split-sequence
 	  split-sequence-if
