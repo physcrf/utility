@@ -45,7 +45,8 @@ docstring."
 	       (apply function (reverse args)))))
     (fn nil dimensions)))
 
-(export '(disjoin
+(export '(defalias
+	  disjoin
 	  conjoin
 	  compose
 	  curry
