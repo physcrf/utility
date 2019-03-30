@@ -146,7 +146,7 @@ Examples:
 (indexes-to-row-major-index '(2 2) 1 0) ;; => 2
 ```
 
-#### <span id="row-major-index-to-indexes"> row-major-index-to-indexes (index dimensions) </span>
+#### <span id="row-major-index-to-indexes"> [function] row-major-index-to-indexes (index dimensions) </span>
 Transforms a row major `index` into subscripts with respect to
 `dimensions`.
 
@@ -156,7 +156,7 @@ Examples:
 (row-major-index-to-indexes 11 '(4 5)) ;; => (2 1)
 ```
 
-#### <span id="indexes-to-column-major-index"> indexes-to-column-major-index (dimensions &rest subscripts) </span>
+#### <span id="indexes-to-column-major-index"> [function] indexes-to-column-major-index (dimensions &rest subscripts) </span>
 Transforms `subscripts` into a column major index with respect to
 `dimensions`.
 
@@ -166,7 +166,7 @@ Examples:
 (indexes-to-column-major-index '(2 2) 1 0) ;; => 1
 ```
 
-#### <span id="column-major-index-to-indexes"> column-major-index-to-indexes (index dimensions) </span>
+#### <span id="column-major-index-to-indexes"> [function] column-major-index-to-indexes (index dimensions) </span>
 Transforms a column major `index` into subscripts with respect to `dimensions`.
 
 Examples:
@@ -175,7 +175,7 @@ Examples:
 (column-major-index-to-indexes 1 '(2 2)) ;; => (1 0)
 ```
 ### <span id="control-flow-ref"> control flow </span>
-#### <span id="switch"> switch ((object &key test key) &body clauses) </span>
+#### <span id="switch"> [macro] switch ((object &key test key) &body clauses) </span>
 Alias of `alexandria:switch`, evaluates first matching clause,
 returning its values, or evaluates and returns the values of default
 if no keys match.
@@ -190,13 +190,13 @@ Examples:
 ```
 
 
-#### <span id="cswitch"> cswitch ((object &key test key) &body clauses) </span>
+#### <span id="cswitch"> [macro] cswitch ((object &key test key) &body clauses) </span>
 Alias of `alexandria:cswitch`, like [switch](#switch), but signals a
 continuable error if no key matches.
-#### <span id="eswitch"> eswitch ((object &key test key) &body clauses) </span>
+#### <span id="eswitch"> [macro] eswitch ((object &key test key) &body clauses) </span>
 Alias of `alexandria:cswitch`, like [switch](#switch), but signals an
 error if no key matches.
-#### <span id="select"> select (keyform &body clauses) </span>
+#### <span id="select"> [macro] select (keyform &body clauses) </span>
 Alias of `serapeum:select`, see
 [serapeum](https://github.com/ruricolist/serapeum/blob/master/REFERENCE.md).
 Like `cl:case`, but keys are evaluated. Note that, interprets a list
@@ -213,7 +213,7 @@ Examples:
 ;; => FOUR
 ```
 
-#### <span id="select*"> select* (keyform test &body clauses) </span>
+#### <span id="select*"> [macro] select* (keyform test &body clauses) </span>
 Alias of `serapeum:selector`. Like `serapeum:select`, but compare
 using `test`. Note that `test` is not evaluated.
 
@@ -234,7 +234,7 @@ Examples:
 ;; => FOUR
 ```
 
-#### <span id="eq*"> eq* (&rest objects) </span>
+#### <span id="eq*"> [function] eq* (&rest objects) </span>
 Alias of `serapeum:eq*`, variadic version of `cl:eq`.
 - with no arguments, return `T`.
 - with one arguments, return `T`.
@@ -253,21 +253,21 @@ Examples:
 (eq* 'a 'a 'b) ;; => NIL
 ```
 
-#### <span id="eql*"> eql* (&rest objects) </span>
+#### <span id="eql*"> [function] eql* (&rest objects) </span>
 Alias of `serapeum:eql*`, variadic version of `cl:eql`. Usage is the
 same as [`eq*`](#eq*) except using `cl:eql` to compare.
 
-#### <span id="equal*"> equal* (&rest objects) </span>
+#### <span id="equal*"> [function] equal* (&rest objects) </span>
 Alias of `serapeum:equal*`, variadic version of `cl:equal`. Usage is the
 same as [`eq*`](#eq*) except using `cl:equal` to compare.
 
-#### <span id="equalp*"> equalp* (&rest objects) </span>
+#### <span id="equalp*"> [function] equalp* (&rest objects) </span>
 Alias of `serapeum:equalp*`, variadic version of `cl:equalp`. Usage is
 the same as [`eq*`](#eq*) except using `cl:equalp` to compare.
 
 
 ### <span id="function-ref"> function </span>
-#### <span id="defalias"> defalias (alias macro-or-function &optional docstring) </span>
+#### <span id="defalias"> [function] defalias (alias macro-or-function &optional docstring) </span>
 Defines alias of `macro-or-function` with optional `docstring`. If
 `docstring` is not `NIL`, the old documentation would be replaced by
 `docstring`.
@@ -279,7 +279,7 @@ Examples:
 (defalias 'my-sin 'sin "My sine") ;; => MY-SIN
 (documentation 'my-sin 'function) ;; => "My sine"
 ```
-#### <span id="disjoin"> disjoin (predicate &rest more-predicates) </span>
+#### <span id="disjoin"> [function] disjoin (predicate &rest more-predicates) </span>
 Alias of `alexandria:disjoin`, see
 [Alexandria](https://common-lisp.net/project/alexandria/draft/alexandria.html). Returns
 a function that applies each of `predicate` and `more-predicate`
@@ -294,7 +294,7 @@ Examples:
 (funcall (disjoin #'zerop #'oddp) 2) ;; => NIL
 ```
 
-#### <span id="conjoin"> conjoin (predicate &rest more-predicates) </span>
+#### <span id="conjoin"> [function] conjoin (predicate &rest more-predicates) </span>
 Alias of `alexandria:disjoin`, returns a function that applies each of
 `predicate` and `more-predicate` functions in turn to its arguments,
 returning `NIL` if any of the predicates returns false, without
@@ -308,7 +308,7 @@ Examples:
 (funcall (conjoin #'zerop #'evenp) 2) ;; => NIL
 ```
 
-#### <span id="compose"> compose (function &rest more-functions) </span>
+#### <span id="compose"> [function] compose (function &rest more-functions) </span>
 Alias of `alexandria:compose`, returns a function composed of
 `function` and `more-functions` that applies its arguments to to each
 in turn, starting from the rightmost of more-functions, and then
@@ -320,7 +320,7 @@ Examples:
 (funcall (compose #'1+ #'exp) 1) ;; => 1+exp(1) = 3.7182817
 ```
 
-#### <span id="curry"> curry (function &rest arguments) </span>
+#### <span id="curry"> [function] curry (function &rest arguments) </span>
 Alias of `alexandria:curry`, returns a function that applies
 `arguments` and the arguments it is called with to `function`.
 
@@ -330,7 +330,7 @@ Examples:
 (funcall (curry #'list 'a 'b) 'c) ;; => (A B C)
 ```
 
-#### <span id="rcurry"> rcurry (function &rest arguments) </span>
+#### <span id="rcurry"> [function] rcurry (function &rest arguments) </span>
 Alias of `alexandria:rcurry`, returns a function that applies the
 `arguments` it is called with and arguments to `function`.
 
@@ -340,7 +340,7 @@ Examples:
 (funcall (rcurry #'list 'a 'b) 'c) ;; => (C A B)
 ```
 
-#### <span id="nested-loop"> nested-loop (subscripts dimensions &body body) </span>
+#### <span id="nested-loop"> [macro] nested-loop (subscripts dimensions &body body) </span>
 Borrowed from [huaiyuan's answer on
 stackoverflow](https://stackoverflow.com/questions/10163298/lisp-macro-or-function-for-nested-loops).
 This macro do nested loop over dimensions, see examples.
@@ -356,7 +356,7 @@ Examples:
 1 1
 ```
 
-#### <span id="nested-map"> nested-map (dimensions function) </span>
+#### <span id="nested-map"> [function] nested-map (dimensions function) </span>
 If the dimensions cannot be decided at compile time, for instance we
 want print elements of an array whose dimensions is not known yet,
 then we need a function. This part is also borrowed from [huaiyuan's
@@ -375,7 +375,7 @@ Examples:
 ```
 
 ### <span id="hash-table-ref"> hash table </span>
-#### <span id="dict"> dict (keys-and-values) </span>
+#### <span id="dict"> [function] dict (keys-and-values) </span>
 Alias of `serapeum:dict`, a concise constructor for hash tables.
 
 Examples:
@@ -383,7 +383,7 @@ Examples:
 (gethash :c (dict :a 1 :b 2 :c 3)) ;; => 3, T
 ```
 
-#### <span id="dict*"> dict* (dict &rest keys-and-values) </span>
+#### <span id="dict*"> [function] dict* (dict &rest keys-and-values) </span>
 Alias of `serapeum:dict*`, merges new bindings into `dict`. 
 
 Examples:
@@ -394,7 +394,7 @@ table ;; => #<HASH-TABLE :TEST EQUAL :COUNT 3>
 table ;; => #<HASH-TABLE :TEST EQUAL :COUNT 4>
 ```
 
-#### <span id="do-hash-table"> do-hash-table ((key value table &optional return) &body body) </span>
+#### <span id="do-hash-table"> [macro] do-hash-table ((key value table &optional return) &body body) </span>
 Alias of `serapeum:do-hash-table`, iterates over hash table `table` in
 no particular order.
 
@@ -409,7 +409,7 @@ Examples:
 (:C 3) 
 ```
 
-#### <span id="copy-hash-table"> copy-hash-table (table &key key test size rehash-size rehash-threshold) </span>
+#### <span id="copy-hash-table"> [function] copy-hash-table (table &key key test size rehash-size rehash-threshold) </span>
 Alias of `alexandria:copy-hash-table`, returns a copy of hash table
 table, with the same keys and values as the table. The copy has the
 same properties as the original, unless overridden by the keyword
@@ -419,7 +419,7 @@ Before each of the original values is set into the new hash-table, key
 is invoked on the value. As key defaults to `cl:identity`, a shallow
 copy is returned by default.
 
-#### <span id="hash-table-keys"> hash-table-keys (table) </span>
+#### <span id="hash-table-keys"> [function] hash-table-keys (table) </span>
 Alias of `alexandria:hash-table-keys`, returns a list containing the
 keys of hash table `table`.
 
@@ -430,7 +430,7 @@ Examples:
 ;; => (:C :B :A)
 ```
 
-#### <span id="hash-table-values"> hash-table-values (table) </span>
+#### <span id="hash-table-values"> [function] hash-table-values (table) </span>
 Alias of `alexandria:hash-table-values`, returns a list containing the
 values of hash table `table`.
 
@@ -441,7 +441,7 @@ Examples:
 ;; => (3 2 1)
 ```
 
-#### <span id="hash-table-alist"> hash-table-alist (table) </span>
+#### <span id="hash-table-alist"> [function] hash-table-alist (table) </span>
 Alias of `alexandria:hash-table-alist`, returns an association list
 containing the keys and values of hash table `table`.
 
@@ -452,7 +452,7 @@ Examples:
 ;; => ((:C . 3) (:B . 2) (:A . 1))
 ```
 
-#### <span id="hash-table-plist"> hash-table-plist (table) </span>
+#### <span id="hash-table-plist"> [function] hash-table-plist (table) </span>
 Alias of `alexandria:hash-table-plist`, returns a property list
 containing the keys and values of hash table `table`.
 
@@ -463,7 +463,7 @@ Examples:
 ;; => (:C 3 :B 2 :A 1)
 ```
 
-#### <span id="alist-hash-table"> alist-hash-table (alist &rest hash-table-initargs) </span>
+#### <span id="alist-hash-table"> [function] alist-hash-table (alist &rest hash-table-initargs) </span>
 Alias of `alexandria:alist-hash-table`, returns a hash table
 containing the keys and values of the association list `alist`. Hash
 table is initialized using the `hash-table-initargs`.
@@ -474,7 +474,7 @@ Examples:
 ;; => #<HASH-TABLE :TEST EQL :COUNT 3>
 ```
 
-#### <span id="plist-hash-table"> plist-hash-table (plist &rest hash-table-initargs) </span>
+#### <span id="plist-hash-table"> [function] plist-hash-table (plist &rest hash-table-initargs) </span>
 Alias of `alexandria:plist-hash-table`, returns a hash table
 containing the keys and values of the property list `plist`. Hash table
 is initialized using the `hash-table-initargs`.
@@ -488,7 +488,7 @@ Examples:
 
 
 ### <span id="list-ref"> list </span>
-#### <span id="appendf"> appendf (place &rest lists) </span>
+#### <span id="appendf"> [macro] appendf (place &rest lists) </span>
 Alias of `alexandria:appendf`, modify-macro for `cl:append`. Appends
 `lists` to the `place` designated by the first argument.
 
@@ -499,7 +499,7 @@ Examples:
 a ;; => (1 2 3 4 5 6)
 ```
 
-#### <span id="append1"> append1 (list item) </span>
+#### <span id="append1"> [function] append1 (list item) </span>
 Alias of `serapeum:append1`, append an atom `item` to a list `list`.
 
 Examples:
@@ -507,7 +507,7 @@ Examples:
 (append1 '(1 2) 3) ;; => (1 2 3)
 ```
 
-#### <span id="lastcar"> lastcar (list) </span>
+#### <span id="lastcar"> [function] lastcar (list) </span>
 Alias of `alexandria:lastcar`, returns the last element of
 `list`. Signals a type-error if `list` is not a proper list.
 It is setfable.
@@ -517,7 +517,7 @@ Examples:
 (lastcar '(1 2 3)) ;; => 3
 ```
 
-#### <span id="plist-keys"> plist-keys (plist) </span>
+#### <span id="plist-keys"> [function] plist-keys (plist) </span>
 Alias of `serapeum:plist-keys`, returns the keys of `plist`.
 
 Examples:
@@ -525,7 +525,7 @@ Examples:
 (plist-keys '(:a 1 :b 2 :c 3)) ;; => (:A :B :C)
 ```
 
-#### <span id="plist-values"> plist-values (plist) </span>
+#### <span id="plist-values"> [function] plist-values (plist) </span>
 Alias of `serapeum:plist-values`, returns the values of `plist`.
 
 Examples:
@@ -533,7 +533,7 @@ Examples:
 (plist-values '(:a 1 :b 2 :c 3)) ;; => (1 2 3)
 ```
 
-#### <span id="insert"> insert (position object list) </span>
+#### <span id="insert"> [macro] insert (position object list) </span>
 Inserts `object` into `list` at `position`.
 
 Examples:
@@ -543,7 +543,7 @@ Examples:
 a ;; => (1 2 3)
 ```
 ### <span id="macro-ref"> macro </span>
-#### <span id="with-gensyms"> with-gensyms (names &body) </span>
+#### <span id="with-gensyms"> [macro] with-gensyms (names &body) </span>
 Alias of `alexandria:with-gensyms`, binds each variable named by a
 symbol in names to a unique symbol around forms. Each of names must
 either be either a symbol, or of the form:
@@ -562,7 +562,7 @@ The string-designator is used as the argument to gensym when
 constructing the unique symbol the named variable will be bound to.
 
 ### <span id="number-ref"> number </span>
-#### <span id="parse-float"> parse-float (string &key start end radix junk-allowed decimal-character exponent-character type) </span>
+#### <span id="parse-float"> [function] parse-float (string &key start end radix junk-allowed decimal-character exponent-character type) </span>
 Alias of `parse-float:parse-float`, detailed documentation refers to
 [parse-float](https://github.com/soemraws/parse-float).
 
@@ -571,7 +571,7 @@ Examples:
 (parse-float "1.23") ;; => 1.23
 (parse-float "1") ;; => 1.0
 ```
-#### <span id="parse-number"> parse-number (string &key start end radix) </span>
+#### <span id="parse-number"> [function] parse-number (string &key start end radix) </span>
 Alias of `parse-number:parse-number`, parses `string` into number.
 See [parse-number](http://cliki.net/parse-number).
 
@@ -589,17 +589,17 @@ Examples:
 (parse-number "#C(12.0 3)") ;; => C(12.0 3.0)
 ```
 
-#### <span id="parse-real-number"> parse-real-number (string &key start end radix) </span>
+#### <span id="parse-real-number"> [function] parse-real-number (string &key start end radix) </span>
 Alias of `parse-number:parse-real-number`, parses `string` into real
 number.  Like [parse-number](#parse-number), but it will signal an
 error when encounter complex number.
 
-#### <span id="parse-positive-real-number"> parse-positive-real-number (string &key start end radix) </span>
+#### <span id="parse-positive-real-number"> [function] parse-positive-real-number (string &key start end radix) </span>
 Alias of `parse-number:parse-positive-real-number`, parses `string`
 into positive real number. Like [parse-number](#parse-number), but it
 will signal an error when encounter complex and negative number.
 
-#### <span id="bits"> bits (int &key big-endian) </span>
+#### <span id="bits"> [function] bits (int &key big-endian) </span>
 Alias of `serapeum:bits`, returns a bit vector of the bits in
 `int`. Defaults to little-endian.
 
@@ -609,7 +609,7 @@ Examples:
 (bits 4 :big-endian t) ;; => #*100
 ```
 
-#### <span id="unbits"> unbits (bits &key big-endian) </span>
+#### <span id="unbits"> [function] unbits (bits &key big-endian) </span>
 Alias of `serapeum:unbits`, turns a bit vector `bits` into an
 integer. Defaults to little-endian.
 
@@ -620,11 +620,11 @@ Examples:
 (unbits #*100 :big-endian t) ;; => 4
 ```
 
-#### <span id="random-in-range"> random-in-range (low high) </span>
+#### <span id="random-in-range"> [function] random-in-range (low high) </span>
 Alias of `serapeum:random-in-range`, random number in the range
 [`low`, `high`). `low` and `high` are automatically swapped if `high`
 is less than `low`.
-#### <span id="iota"> iota (n &key (start 0) (start 1)) </span>
+#### <span id="iota"> [function] iota (n &key (start 0) (start 1)) </span>
 Alias of `alexandria:iota`, returns a list of `n` numbers, starting
 from `start`, each consequtive number being the sum of the previous
 one and `step`. start defaults to 0 and step to 1.
@@ -635,7 +635,7 @@ Examples:
 (iota 3 :start 1 :step 1.0) ;; => (1.0 2.0 3.0)
 (iota 3 :start -1 :step -1/2) ;; => (-1 -3/2 -2)
 ```
-#### <span id="string-integerp"> string-integerp (string) </span>
+#### <span id="string-integerp"> [function] string-integerp (string) </span>
 Tells if a string `string` represents an integer. This function tries to
 be compatible with `cl:integerp`, therefore string like "1." is
 treated as integer.
@@ -648,7 +648,7 @@ Examples:
 (string-integerp "1.0") ;; => NIL
 ```
 
-#### <span id="string-floatp"> string-floatp (string) </span>
+#### <span id="string-floatp"> [function] string-floatp (string) </span>
 Tells if a string `string` represents a float number.
 
 Examples:
@@ -658,7 +658,7 @@ Examples:
 (string-floatp "1.0) ;; => T
 ```
 
-#### <span id="string-realp"> string-realp (string) </span>
+#### <span id="string-realp"> [function] string-realp (string) </span>
 Tells if a string `string` represents a real number.
 
 Examples:
@@ -667,7 +667,7 @@ Examples:
 (string-realp "-1.2.3E4") ;; => NIL
 ```
 
-#### <span id="string-complexp"> string-complexp (string) </span>
+#### <span id="string-complexp"> [function] string-complexp (string) </span>
 Tells if a string `string` represents a real number. 
 
 Note that this function tries to be compatible with `cl:complexp`,
@@ -682,17 +682,17 @@ than a complex number.
 (string-complexp "#C(1 1)") ;; => T
 ```
 
-#### <span id="string-numberp"> string-numberp (string) </span>
+#### <span id="string-numberp"> [function] string-numberp (string) </span>
 Tells if a string `string` represents a number. If
 [string-realp](#string-realp) or [string-complexp](#string-complexp)
 returns true, then it is a number.
 
 ### <span id="sequence-ref"> sequence </span>
-#### <span id="emptyp"> emptyp (sequence) </span>
+#### <span id="emptyp"> [generic function] emptyp (sequence) </span>
 Alias of `alexandria:emptyp`, returns true if `sequence` is an empty
 sequence. Signals an error if `sequence` is not a sequence.
 
-#### <span id="rotate"> rotate (sequence &optional (n 1)) </span>
+#### <span id="rotate"> [function] rotate (sequence &optional (n 1)) </span>
 Alias of `alexandria:rotate`, returns a sequence of the same type as
 `sequence`, with the elements of sequence rotated by `n`. `n`must be
 an integer.
@@ -706,35 +706,35 @@ Examples:
 (rotate #(1 2 3)) ;; => #(3 1 2)
 ```
 
-#### <span id="random-elt"> random-elt (sequence &key (start 0) end) </span>
+#### <span id="random-elt"> [function] random-elt (sequence &key (start 0) end) </span>
 Alias of `alexandria:random-elt`, returns a random element from
 `sequence` bounded by `start` and `end`. Signals an error if the
 sequence is not a proper non-empty sequence, or if `end` and `start`
 are not proper bounding index designators for sequence.
 
-#### <span id="copy-sequence"> copy-sequence (type sequence) </span>
+#### <span id="copy-sequence"> [function] copy-sequence (type sequence) </span>
 Alias of `alexandria:copy-sequence`, returns a fresh sequence of `type`,
 which has the same elements as `sequence`.
 
-#### <span id="first-elt"> first-elt (sequence) </span>
+#### <span id="first-elt"> [function] first-elt (sequence) </span>
 Alias of `alexandria:first-elt`, returns the first element of
 `sequence`. Signals a type-error if `sequence` is not a sequence, or
 is an empty sequence. It is setfable.
 
-#### <span id="second-elt"> second-elt (sequence) </span>
+#### <span id="second-elt"> [function] second-elt (sequence) </span>
 Returns the second element of `sequence`. Signals a type-error if
 `sequence` is not a sequence, or it is an empty sequence. It is setfable.
 
-#### <span id="third-elt"> third-elt (sequence) </span>
+#### <span id="third-elt"> [function] third-elt (sequence) </span>
 Returns the third element of `sequence`. Signals a type-error if
 `sequence` is not a sequence, or it is an empty sequence. It is setfable.
 
-#### <span id="last-elt"> last-elt (sequence) </span>
+#### <span id="last-elt"> [function] last-elt (sequence) </span>
 Alias of `alexandria:last-elt`, returns the last element of
 `sequence`. Signals a type-error if `sequence` is not a proper
 sequence, or is an empty sequence. It is setfable.
 
-#### <span id="split-sequence"> split-sequence (delimiter sequence &key count remove-empty-subseqs from-end (start 0) end (test #'eql) test-not (key #'identity)) </span>
+#### <span id="split-sequence"> [function] split-sequence (delimiter sequence &key count remove-empty-subseqs from-end (start 0) end (test #'eql) test-not (key #'identity)) </span>
 Alias of `split-sequence:split-sequence`, splits `sequence` into
 sub-sequences according to `delimiter`. Detail documentation refers
 to [split-sequence](https://www.cliki.net/SPLIT-SEQUENCE).
@@ -745,7 +745,7 @@ Examples:
 ;; => ((A) (B) (C)), 5
 ```
 
-#### <span id="split-sequence-if"> split-sequence-if (predicate sequence &key count remove-empty-subseqs from-end (start 0) end (key #'identity)) </span>
+#### <span id="split-sequence-if"> [function] split-sequence-if (predicate sequence &key count remove-empty-subseqs from-end (start 0) end (key #'identity)) </span>
 Alias of `split-sequence:split-sequence-if`, splits `sequence` into 
 sub-sequences according to `predicate`. Detail documentation refers
 to [split-sequence](https://www.cliki.net/SPLIT-SEQUENCE).
@@ -756,7 +756,7 @@ Examples:
 (split-sequence-if #'oddp '(1 2 3 4 5)) ;; => (NIL (2) (4) NIL), 5
 ```
 
-#### <span id="split-sequence-if-not"> split-sequence-if-not (predicate sequence &key count remove-empty-subseqs from-end (start 0) end (key #'identity)) </span>
+#### <span id="split-sequence-if-not"> [function] split-sequence-if-not (predicate sequence &key count remove-empty-subseqs from-end (start 0) end (key #'identity)) </span>
 Alias of `split-sequence:split-sequence-if-not`, splits `sequence`
 into sub-sequences according to not `predicate`. Detail documentation
 refers to [split-sequence](https://www.cliki.net/SPLIT-SEQUENCE).
@@ -767,7 +767,7 @@ Examples:
 (split-sequence-if-not #'oddp '(1 2 3 4 5)) ;; => ((1) (3) (5)), 5
 ```
 
-#### <span id="runs"> runs (sequence &key (start 0) end (key #'identity) (test #'eql)) </span>
+#### <span id="runs"> [function] runs (sequence &key (start 0) end (key #'identity) (test #'eql)) </span>
 Alias of `serapeum:runs`, returns a list of runs of similar elements
 in `sequence`. The arguments `start`, `end`, and `key` are as for
 `cl:reduce`.
@@ -778,7 +778,7 @@ Examples:
 (runs #(head tail head head tail)) ;; => (#(HEAD) #(TAIL) #(HEAD HEAD) #(TAIL))
 ```
 
-#### <span id="batches"> batches (sequence n &key (start 0) end even) </span>
+#### <span id="batches">  [function] batches (sequence n &key (start 0) end even) </span>
 Alias of `serapeum:batches`, return `sequence` in batches of `n`
 elements. If `even` is true, the sequence must be evenly divided
 otherwise an error is signaled.
@@ -789,7 +789,7 @@ Examples:
 (batches #(0 1 2 3 4 5 6 7 8 9 10) 2) ;; => (#(0 1) #(2 3) #(4 5) #(6 7) #(8 9) #(10))
 ```
 
-#### <span id="frequencies"> frequencies (sequence &rest hash-table-args &key key &allow-other-keys) </span>
+#### <span id="frequencies">  [function] frequencies (sequence &rest hash-table-args &key key &allow-other-keys) </span>
 Alias of `serapeum:frequencies`, returns a hash table with the count
 of each unique item in `sequence`. As a second value, return the length of
 `sequence`.
@@ -800,7 +800,7 @@ Examples:
 (frequencies #(1 2 2 3 3 3)) ;; => #<HASH-TABLE :TEST EQUAL :COUNT 3>, 6
 ```
 
-#### <span id="assort"> assort (sequence &key (key #'identity) (test #'eql) (start 0) end) </span>
+#### <span id="assort">  [function] assort (sequence &key (key #'identity) (test #'eql) (start 0) end) </span>
 Alias of `serapeum:assort`, returns `sequence` assorted by
 `key`. *Seems this function has a bug*.
 
@@ -810,7 +810,7 @@ Examples:
 ;; => ((0 2 4 6 8 10) (1 3 5 7 9))
 ```
 
-#### <span id="partition"> partition (predicate sequence &key (start 0) end (key #'identity)) </span>
+#### <span id="partition">  [function] partition (predicate sequence &key (start 0) end (key #'identity)) </span>
 Alias of `serapeum:partition`, partition elements of `sequence` into
 those for which `predicate` returns true and false. Returns two
 values, one with each sequence.
@@ -825,7 +825,7 @@ Examples:
 (partition #'evenp #(1 2 3)) ;; => #(2), #(1 3)
 ```
 
-#### <span id="do-each"> do-each ((var sequence &optional return) &body body) </span>
+#### <span id="do-each"> [macro] do-each ((var sequence &optional return) &body body) </span>
 Alias of `serapeum:do-each`, iterates over the elements of `sequence`,
 a sequence. If `sequence` is a list, this is equivalent to
 `cl:dolist`.
@@ -841,7 +841,7 @@ Examples:
 4
 ```
 
-#### <span id="filter"> filter (predicate sequence &rest args &key count &allow-other-keys) </span>
+#### <span id="filter"> [function] filter (predicate sequence &rest args &key count &allow-other-keys) </span>
 Alias of `serapeum:filter`, almost but not quite an alias of `cl:remove-if-not`.
 
 The difference is the handling of `count`: for `filter`, `count` is
@@ -854,7 +854,7 @@ Examples:
 (filter #'oddp '(1 2 3 4 5 6) :count 2) ;;  => (1 3)
  ```
  
-#### <span id="keep"> keep (item sequence &rest args &key (test #'eql) from-end key count &allow-other-keys) </span>
+#### <span id="keep"> [function] keep (item sequence &rest args &key (test #'eql) from-end key count &allow-other-keys) </span>
 Alias of `serapeum:keep`, alias but not quite an alias of `cl:remove`
 with `:test-not` instead of `:test`.
 
@@ -872,7 +872,7 @@ Examples:
 (keep 'x '((x 1) (y 2) (x 3)) :key #'car) ;; => ((X 1) (X 3))
 ```
 
-#### <span id="single"> single (sequence) </span>
+#### <span id="single"> [function] single (sequence) </span>
 Alias of `serapeum:single`, tests if `sequence` has only one element.
 
 Examples:
@@ -882,7 +882,7 @@ Examples:
 (single #(1 2)) ;; => NIL
 ```
 
-#### <span id="cumulate"> cumulate (func sequence &rest args &key from-end (start 0) end initial-values &allow-other-keys) </span>
+#### <span id="cumulate"> [function] cumulate (func sequence &rest args &key from-end (start 0) end initial-values &allow-other-keys) </span>
 Alias of `serapeum:scan`, returns the partial reductions of `sequence`.
 
 Each element of the result sequence is the result of calling
@@ -905,44 +905,44 @@ empty sequence, however.
 (cumulate #'+ '()) ;; => NIL
 ```
 
-#### <span id="of-length"> of-length (n sequence) </span>
+#### <span id="of-length"> [function] of-length (n sequence) </span>
 Checks if the length of `sequence` is `n`.
 
-#### <span id="length="> length= (&rest sequences) </span>
+#### <span id="length="> [function] length= (&rest sequences) </span>
 Alias of `alexandria:length=`, takes any number of sequences or
 integers in any order. Returns true if the length of all the
 sequences and the integers are equal.
 
-#### <span id="length>"> length> (&rest sequences) </span>
+#### <span id="length>"> [function] length> (&rest sequences) </span>
 Alias of `serapeum:length>`, checks if each length designator in
 `sequences` longer than the next. A length designator may be a
 sequence or an integer.
 
-#### <span id="length<"> length< (&rest sequences) </span>
+#### <span id="length<"> [function] length< (&rest sequences) </span>
 Alias of `serapeum:length<`, checks if each length designator in
 `sequences` shorter than the next. A length designator may be a
 sequence or an integer.
 
-#### <span id="length>="> length>= (&rest sequences) </span>
+#### <span id="length>="> [function] length>= (&rest sequences) </span>
 Alias of `serapeum:length>=`, checks if each length designator in
 `sequences` not shorter than the next. A length designator may be a
 sequence or an integer.
 
-#### <span id="length<="> length<= (&rest sequences) </span>
+#### <span id="length<="> [function] length<= (&rest sequences) </span>
 Alias of `serapeum:length<=`, checks if each length designator in
 `sequences` not longer than the next. A length designator may be a
 sequence or an integer.
 
-#### <span id="longer"> longer (x y) </span>
+#### <span id="longer"> [function] longer (x y) </span>
 Alias of `serapeum:longer`, returns the longer of `x` and `y`.
 If `x` and `y` are of equal length, then return `x`.
 
-#### <span id="longest"> longest (&rest sequences) </span>
+#### <span id="longest"> [function] longest (&rest sequences) </span>
 Wrapper of `serapeum:longest`, returns the longest sequence in
 `sequences`.
 
 
-#### <span id="take"> take (n sequence) </span>
+#### <span id="take"> [function] take (n sequence) </span>
 Alias of `serapeum:take`, returns at most the first `n` elements of
 `sequence`. New sequence is of same type of `sequence`.
 
@@ -950,7 +950,7 @@ If `n` is larger than length of `sequence`, simply copy `sequence`.
 
 If `n` is negative, then the first |`n`| elements are taken.
 
-#### <span id="drop"> drop (n sequence) </span>
+#### <span id="drop"> [function] drop (n sequence) </span>
 Alias of `serapeum:drop`, returns all but first `n` elements in
 `sequence`. New sequence is of same type of `sequence`.
 
@@ -960,42 +960,42 @@ sequence.
 If `n` is negative, then |`n`| elements are dropped.
 
 ### <span id="stream-ref"> stream </span>
-#### <span id="read-file-form"> read-file-form (file &rest keys &key (at 0) &allow-other-keys) </span>
+#### <span id="read-file-form"> [function] read-file-form (file &rest keys &key (at 0) &allow-other-keys) </span>
 Alias of `uiop:read-file-form`, opens input `file` with option `keys`
 (except `at`), and read its contents as per `uiop:slurp-stream-form`
 with given at specifier. beware: be sure to use `uiop:with-safe-io-syntax`,
 or some variant thereof.
 
-#### <span id="read-file-forms"> read-file-forms (file &rest keys &key count &allow-other-keys) </span>
+#### <span id="read-file-forms"> [function] read-file-forms (file &rest keys &key count &allow-other-keys) </span>
 Alias of `uiop:read-file-forms`, opens input `file` with option `keys`
 (except `count`), and read its contents as per
 `uiop:slurp-stream-forms` with given `count`. beware: be sure to use
 `uiop:with-safe-io-syntax`, or some variant thereof.
 
-#### <span id="read-file-line"> read-file-line (file &rest keys &key (at 0) &allow-other-keys) </span>
+#### <span id="read-file-line"> [function] read-file-line (file &rest keys &key (at 0) &allow-other-keys) </span>
 Alias of `uiop:read-file-line`, opens input `file` with option `keys`
 (except `at`), and read its contents as per `uiop:slurp-stream-line`
 with given at specifier. beware: be sure to use
 `uiop:with-safe-io-syntax`, or some variant thereof.
 
-#### <span id="read-file-lines"> read-file-lines (file &rest keys &key count &allow-other-keys) </span>
+#### <span id="read-file-lines"> [function] read-file-lines (file &rest keys &key count &allow-other-keys) </span>
 Alias of `uiop:read-file-lines`, opens input `file` with option
 `keys`, read its contents as a list of lines. beware: be sure to use
 `uiop:with-safe-io-syntax`, or some variant thereof.
 
-#### <span id="read-file-string"> read-file-string  (file &rest keys) </span>
+#### <span id="read-file-string"> [function] read-file-string  (file &rest keys) </span>
 Alias of `uiop:read-file-string`, open input `file` with option
 `keys`, read its contents as a string.
 
 
 
 
-#### <span id="read-file-data"> read-file-data (filename &key (comments "#") (delimiter "\\s+")) </span>
+#### <span id="read-file-data"> [function] read-file-data (filename &key (comments "#") (delimiter "\\s+")) </span>
 Reads data from file `filename` into a nested (2 dimensional) list.
-#### <span id="write-file-data"> write-file-data (filename data &key (format "~10,8G") (delimiter "~8T") (comments "#") (header "") (footer "")) </span>
+#### <span id="write-file-data"> [function] write-file-data (filename data &key (format "~10,8G") (delimiter "~8T") (comments "#") (header "") (footer "")) </span>
 Writes data in a nested (2 dimensional) list into file `filename`.
 ### <span id="symbol-ref"> symbol </span>
-#### <span id="make-keyword"> make-keyword (name) </span>
+#### <span id="make-keyword"> [function] make-keyword (name) </span>
 Alias of `alexandria:make-keyword`, interns the string designated by
 `name` in the keyword package.
 
@@ -1005,7 +1005,7 @@ Examples:
 (make-keyword "hello") ;; => :|hello|
 ```
 
-#### <span id="symbolicate"> symbolicate (&rest things) </span>
+#### <span id="symbolicate"> [function] symbolicate (&rest things) </span>
 Alias of `alexandria:symbolicate`, concatenates together the names of
 some strings and symbols, producing a symbol in the current package.
 
@@ -1015,7 +1015,7 @@ Examples:
 (symbolicate "HELLO" '- 'world) ;; => HELLO-WORLD
 ```
 
-#### <span id="find-keyword"> find-keyword (string) </span>
+#### <span id="find-keyword"> [function] find-keyword (string) </span>
 Alias of `serapeum:find-keyword`, if `string` has been interned as a
 keyword, return it.
 
@@ -1028,6 +1028,6 @@ Examples:
 ```
 
 ### <span id="types-ref"> types </span>
-#### <span id="true"> true (x) </span>
+#### <span id="true"> [function] true (x) </span>
 Alias of `serapeum:true`, if `x` is `NIL`, return `NIL`, otherwise return `T`.
 
