@@ -81,6 +81,11 @@ professional libraries such as
 - [unbits](#unbits)
 - [random-in-range](#random-in-range)
 - [iota](#iota)
+- [string-integerp](#string-integerp)
+- [string-floatp](#string-floatp)
+- [string-realp](#string-realp)
+- [string-complexp](#string-complexp)
+- [string-numberp](#string-numberp)
 ### [sequence](#sequence-ref)
 - [emptyp](#emptyp)
 - [rotate](#rotate)
@@ -129,7 +134,7 @@ professional libraries such as
 - [true](#true)
 ## Function Reference
 ### <span id="array-ref"> array </span>
-#### <span id="indexes-to-row-major-index"> indexes-to-row-major-index (dimensions &rest subscripts) </span>
+#### <span id="indexes-to-row-major-index"> [Function] indexes-to-row-major-index (dimensions &rest subscripts) </span>
 This function is written in reference to
 [cffi](https://common-lisp.net/project/cffi/)'s internal utilities
 (which are not exported by `cffi`). It transforms `subscripts` into a
@@ -630,6 +635,58 @@ Examples:
 (iota 3 :start 1 :step 1.0) ;; => (1.0 2.0 3.0)
 (iota 3 :start -1 :step -1/2) ;; => (-1 -3/2 -2)
 ```
+#### <span id="string-integerp"> string-integerp (string) </span>
+Tells if a string `string` represents an integer. This function tries to
+be compatible with `cl:integerp`, therefore string like "1." is
+treated as integer.
+
+Examples:
+```cl
+(string-integerp "1") ;; => T
+(cl:integerp 1.) ;; => T
+(string-integerp "1.") ;; => T
+(string-integerp "1.0") ;; => NIL
+```
+
+#### <span id="string-floatp"> string-floatp (string) </span>
+Tells if a string `string` represents a float number.
+
+Examples:
+```cl
+(string-floatp "1") ;; => NIL
+(string-floatp "1.") ;; => NIL
+(string-floatp "1.0) ;; => T
+```
+
+#### <span id="string-realp"> string-realp (string) </span>
+Tells if a string `string` represents a real number.
+
+Examples:
+```cl
+(string-realp "-1.23E4") ;; => T
+(string-realp "-1.2.3E4") ;; => NIL
+```
+
+#### <span id="string-complexp"> string-complexp (string) </span>
+Tells if a string `string` represents a real number. 
+
+Note that this function tries to be compatible with `cl:complexp`,
+thus string like "#C(1 0)" would be treated as a real number rather
+than a complex number.
+
+```Examples:
+(string-complexp "1") ;; => NIL
+(string-complexp "1.2") ;; => NIL
+(string-complexp "#C(1 0)") ;; => NIL
+(string-complexp "#C(1 0.0)") ;; => T
+(string-complexp "#C(1 1)") ;; => T
+```
+
+#### <span id="string-numberp"> string-numberp (string) </span>
+Tells if a string `string` represents a number. If
+[string-realp](#string-realp) or [string-complexp](#string-complexp)
+returns true, then it is a number.
+
 ### <span id="sequence-ref"> sequence </span>
 #### <span id="emptyp"> emptyp (sequence) </span>
 Alias of `alexandria:emptyp`, returns true if `sequence` is an empty
