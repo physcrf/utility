@@ -27,12 +27,11 @@ docstring."
   This macro does nested loop over dimensions."
   (when (not (alexandria:length= dimensions subscripts))
     (error "nested-loop: dimensions and subscripts are not of same length."))
-  (loop
-     for index in (reverse subscripts)
-     for dim in (reverse dimensions)
-     for x = body then (list y)
-     for y = `(dotimes (,index ,dim) ,@x)
-     finally (return y)))
+  (loop for index in (reverse subscripts)
+	for dim in (reverse dimensions)
+	for x = body then (list y)
+	for y = `(dotimes (,index ,dim) ,@x)
+	finally (return y)))
 
 (defun nested-map (dimensions function)
   "nested-map (dimensions function)

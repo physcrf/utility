@@ -20,15 +20,15 @@
 			lines))
 	 (lines (mapcar (lambda (line) (ppcre:split delimiter line)) lines))
 	 (lines (loop for line in lines
-		   collect (mapcar #'parse-number:parse-number line))))
+		      collect (mapcar #'parse-number:parse-number line))))
     lines))
 
 (defun write-file-data (filename data &key
-			  (format "~10,8G") (delimiter "~8T") (comments "#")
-			  (header "") (footer ""))
+				 (format "~10,8G") (delimiter "~8T") (comments "#")
+				 (header "") (footer ""))
   "write-file-data (filename data &key
-			  (format \"~10,8G\") (delimiter \"~8T\") (comments \"#\")
-			  (header \"\") (footer \"\"))"
+			    (format \"~10,8G\") (delimiter \"~8T\") (comments \"#\")
+			    (header \"\") (footer \"\"))"
   (with-open-file (stream filename
 			  :direction :output
 			  :if-exists :supersede
@@ -36,7 +36,7 @@
     (when (not (str:blankp header))
       (format stream "~A ~A~%" comments header))
     (loop for line in data
-       do (format stream (str:concat "~{" format "~^" delimiter "~}~%") line))
+	  do (format stream (str:concat "~{" format "~^" delimiter "~}~%") line))
     (when (not (str:blankp footer))
       (format stream "~A~A~%" comments footer))))
 

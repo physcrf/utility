@@ -14,14 +14,13 @@ dimensions."
 
   Transforms a row major index into subscripts with respect to 
 dimensions."
-  (loop
-     with idx = index
-     with rank = (length dimensions)
-     with indexes = (make-list rank)
-     for dim-index from (- rank 1) downto 0
-     do (setf (values idx (nth dim-index indexes))
-              (floor idx (nth dim-index dimensions)))
-     finally (return indexes)))
+  (loop with idx = index
+	with rank = (length dimensions)
+	with indexes = (make-list rank)
+	for dim-index from (- rank 1) downto 0
+	do (setf (values idx (nth dim-index indexes))
+		 (floor idx (nth dim-index dimensions)))
+	finally (return indexes)))
 
 (defun indexes-to-column-major-index (dimensions &rest subscripts)
   "indexes-to-column-major-index (dimensions &rest subscripts)

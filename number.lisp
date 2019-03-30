@@ -44,18 +44,18 @@
 				   suffix-regex)
 		       string))
       (ppcre:scan (str:concat prefix-regex
-			     real-regex "\\s+"
-			     real-regex
-			     suffix-regex)
-		 string)))))
-    
+			      real-regex "\\s+"
+			      real-regex
+			      suffix-regex)
+		  string)))))
+
 (defun string-numberp (string)
   "string-numberp (string)
 
   Tells if a string STRING represents a number."
   (or (string-realp string)
       (string-complexp string)))
-				        
+
 (export '(parse-float
 	  parse-number
 	  parse-real-number
