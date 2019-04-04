@@ -35,6 +35,7 @@ professional libraries such as
 - [row-major-index-to-indexes](#row-major-index-to-indexes)
 - [indexes-to-column-major-index](#indexes-to-column-major-index)
 - [column-major-index-to-indexes](#column-major-index-to-indexes)
+- [copy-array](#copy-array)
 ### [control flow](#control-flow-ref)
 - [switch](#switch)
 - [cswitch](#cswitch)
@@ -176,6 +177,10 @@ Examples:
 (column-major-index-to-indexes 6 '(4 5)) ;; => (2 1)
 (column-major-index-to-indexes 1 '(2 2)) ;; => (1 0)
 ```
+#### <span id="copy-array"> [function] copy-array (array &key element-type fill-pointer adjustable) </span>
+Alias of `alexandria:copy-array`, returns an undisplaced copy of
+`array`, with same `fill-pointer` and `adjustability` (if any) as the
+original, unless overridden by the keyword arguments.
 ### <span id="control-flow-ref"> control flow </span>
 #### <span id="switch"> [macro] switch ((object &key test key) &body clauses) </span>
 Alias of `alexandria:switch`, evaluates first matching clause,

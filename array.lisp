@@ -39,7 +39,10 @@ dimensions."
    (funcall #'row-major-index-to-indexes
 	    index (reverse dimensions))))
 
+(defalias 'copy-array 'alexandria:copy-array)
+
 (export '(indexes-to-row-major-index
 	  row-major-index-to-indexes
 	  indexes-to-column-major-index
-	  column-major-index-to-indexes))
+	  column-major-index-to-indexes
+	  copy-array))
