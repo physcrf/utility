@@ -123,6 +123,7 @@ professional libraries such as
 - [longest](#longest)
 - [take](#take)
 - [drop](#drop)
+- [remove-nth](#remove-nth)
 ### [stream](#stream-ref)
 - [read-file-form](#read-file-form)
 - [read-file-forms](#read-file-forms)
@@ -971,6 +972,15 @@ If `n` is larger than the length of `sequence`, returns an empty
 sequence.
 
 If `n` is negative, then |`n`| elements are dropped.
+
+#### <span id="remove-nth"> [function] remove-nth (n sequence) </span>
+Returns a sequence without `n`th element in `sequence`.
+
+Examples:
+```cl
+(defparameter a #(1 2 3 4)) 
+(remove-nth 2 a) ;; => #(1 2 4)
+```
 
 ### <span id="stream-ref"> stream </span>
 #### <span id="read-file-form"> [function] read-file-form (file &rest keys &key (at 0) &allow-other-keys) </span>

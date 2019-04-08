@@ -50,14 +50,22 @@ SEQUENCE is not a sequence, or it is an empty sequence."
 
 (defun of-length (n sequence)
   "of-length (n sequence)
+
   Checks if the length of sequence is n."
   (= n (length sequence)))
 
 (defun longest (&rest sequences)
   "longest (&rest sequences)
+
   Returns the longest sequence in sequences."
   (funcall #'serapeum:longest sequences))
 
+(defun remove-nth (n sequence)
+  "remove-nth (n sequence)
+
+  Returns a sequence without nth element in SEQUENCE."
+  (remove t sequence :key (constantly t) :start n :count 1))
+	  
 (export '(emptyp
 	  rotate
 	  random-elt
@@ -88,4 +96,5 @@ SEQUENCE is not a sequence, or it is an empty sequence."
 	  longer
 	  longest
 	  take
-	  drop))
+	  drop
+	  remove-nth))
