@@ -2,3 +2,6 @@
   + Create this ChangLog
   + Add alexandria:copy-array
   + version 1.00 -> version 1.1
+* <2019-04-08>
+  + Add square and cube function in number.lisp
+  + Version 1.1 -> Version 1.2

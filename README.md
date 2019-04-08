@@ -1,5 +1,5 @@
 # utility
-[![Version Badge](https://img.shields.io/badge/version-1.1-brightgreen.svg)](https://github.com/physcrf/utility)
+[![Version Badge](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/physcrf/utility)
 
 My utility collection
 
@@ -89,6 +89,8 @@ professional libraries such as
 - [string-realp](#string-realp)
 - [string-complexp](#string-complexp)
 - [string-numberp](#string-numberp)
+- [square](#square)
+- [cube](#cube)
 ### [sequence](#sequence-ref)
 - [emptyp](#emptyp)
 - [rotate](#rotate)
@@ -694,6 +696,10 @@ Tells if a string `string` represents a number. If
 [string-realp](#string-realp) or [string-complexp](#string-complexp)
 returns true, then it is a number.
 
+#### <span id="square"> [function] square (x) </span>
+Returns the square of `x`, `x**2`.
+#### <span id="cube"> [function] cube (x) </span>
+Returns the cube of `x`, `x**3`.
 ### <span id="sequence-ref"> sequence </span>
 #### <span id="emptyp"> [generic function] emptyp (sequence) </span>
 Alias of `alexandria:emptyp`, returns true if `sequence` is an empty

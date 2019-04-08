@@ -56,6 +56,18 @@
   (or (string-realp string)
       (string-complexp string)))
 
+(defun square (x)
+  "square (x)
+
+Returns the square of x, x**2."
+  (expt x 2))
+
+(defun cube (x)
+  "cube (x)
+
+Returns the cubic of x, x**3."
+  (expt x 3))
+
 (export '(parse-float
 	  parse-number
 	  parse-real-number
@@ -68,4 +80,6 @@
 	  string-floatp
 	  string-realp
 	  string-complexp
-	  string-numberp))
+	  string-numberp
+	  square
+	  cubic))
