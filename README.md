@@ -5,20 +5,20 @@ My utility collection
 
 ## Introduction
 There are serveral external generic utility libraries, such as famous
-[Alexandria](https://common-lisp.net/project/alexandria/) in Common
+[Alexandria](https://common-lisp.net/project/alexandria/), in Common
 Lisp world. However, usually `Alexandria` alone is not enough for
-progeraming, and one need to import other libraries such as the de
+programing, and one need to import other libraries such as the de
 facto standard utility
 [uiop](https://common-lisp.net/project/asdf/uiop.html) or a large
 supplement to `Alexandria`
 [serapeum](https://github.com/ruricolist/serapeum). At the same time,
-sometimes there are name conflicts between different packages and one
-need to choose the needed function by own hand.
+there may be name conflicts between different packages and one
+need to choose the symbol by hand.
 
 Therefore I just collect functions from multiple libraries into one
 single package for my own use. Some functions are also renamed or
-rewrapped to fit my convention. Also, there are some codes written by
-my own. Right now, used libraries are
+rewrapped to fit my convention. Also, there are some functions written by
+my own. Right now, libraries dependencies are
 - [Alexandria](https://common-lisp.net/project/alexandria/)
 - [serapeum](https://github.com/ruricolist/serapeum)
 - [uiop](https://common-lisp.net/project/asdf/uiop.html)
