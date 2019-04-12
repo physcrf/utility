@@ -40,10 +40,32 @@
     (when (not (str:blankp footer))
       (format stream "~A~A~%" comments footer))))
 
+(defmacro with-input-file ((stream filespec) &body body)
+  "with-input-file ((stream filespec) &body body)
+
+  A shorthand of WITH-OPEN-FILE with (:DIRECTION :INPUT)"
+  `(with-open-file (,stream ,filespec
+			    :direction :input)
+     ,@body))
+
+(defmacro with-output-file ((stream filespec) &body body)
+  "with-output-file ((stream filespec) &body body)
+
+  A shorthand of WITH-OPEN-FILE with (:DIRECTION :OUTPUT
+                                      :IF-EXISTS :SUPERSEDE
+                                      :IF-DOES-NOT-EXIST :CREATE)"
+  `(with-open-file (,stream ,filespec
+			    :direction :output
+			    :if-exists :supersede
+			    :if-does-not-exist :create)
+     ,@body))
+  
 (export '(read-file-form
 	  read-file-forms
 	  read-file-line
 	  read-file-lines
 	  read-file-string
 	  read-file-data
-	  write-file-data))
+	  write-file-data
+	  with-input-file
+	  with-output-file))

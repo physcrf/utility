@@ -1,6 +1,6 @@
 (defsystem :utility
     :description "utility: my utility collection"
-    :version "1.1"
+    :version "1.3"
     :author "Chen Ruofan <physcrf@qq.com>"
     :depends-on (:alexandria
 		 :serapeum

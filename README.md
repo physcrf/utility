@@ -1,5 +1,5 @@
 # utility
-[![Version Badge](https://img.shields.io/badge/version-1.2-brightgreen.svg)](https://github.com/physcrf/utility)
+[![Version Badge](https://img.shields.io/badge/version-1.3-brightgreen.svg)](https://github.com/physcrf/utility)
 
 My utility collection
 
@@ -132,6 +132,8 @@ professional libraries such as
 - [read-file-string](#read-file-string)
 - [read-file-data](#read-file-data)
 - [write-file-data](#write-file-data)
+- [with-input-file](#with-input-file)
+- [with-output-file](#with-output-file)
 ### [symbols](#symbols-ref)
 - [make-keyworkd](#make-keyworkd)
 - [symbolicate](#symbolicate)
@@ -1017,6 +1019,11 @@ Alias of `uiop:read-file-string`, open input `file` with option
 Reads data from file `filename` into a nested (2 dimensional) list.
 #### <span id="write-file-data"> [function] write-file-data (filename data &key (format "~10,8G") (delimiter "~8T") (comments "#") (header "") (footer "")) </span>
 Writes data in a nested (2 dimensional) list into file `filename`.
+#### <span id="with-input-file"> with-input-file ((stream filespec) &body body) </span>
+A shorthand of `cl:with-open-file` with `(:direction :input)`.
+
+#### <span id="with-output-file">  with-output-file ((stream filespec) &body body) </span>
+A shorthand of `cl:with-open-file` with `(:direction :output :if-exists :supersede :if-does-not-exist :create)`.
 ### <span id="symbol-ref"> symbol </span>
 #### <span id="make-keyword"> [function] make-keyword (name) </span>
 Alias of `alexandria:make-keyword`, interns the string designated by
