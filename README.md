@@ -23,6 +23,7 @@ my own. Right now, libraries dependencies are
 - [serapeum](https://github.com/ruricolist/serapeum)
 - [uiop](https://common-lisp.net/project/asdf/uiop.html)
 - [parse-number](https://github.com/sharplispers/parse-number)
+- [parse-float](https://github.com/soemraws/parse-float)
 - [split-sequence](https://www.cliki.net/SPLIT-SEQUENCE)
 
 This collection focus on miscellaneous utilities, thus some
