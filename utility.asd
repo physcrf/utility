@@ -9,18 +9,26 @@
 		 :parse-float
 		 :split-sequence
 		 :cl-ppcre
-		 :str)
-    :components ((:file "package")
-		 (:file "array" :depends-on ("function"))
-		 (:file "control-flow" :depends-on ("function"))
-		 (:file "function" :depends-on ("package"))
-		 (:file "hash-table" :depends-on ("function"))
-		 (:file "list" :depends-on ("function"))
-		 (:file "macro" :depends-on ("function"))
-		 (:file "number" :depends-on ("function"))
-		 (:file "sequence" :depends-on ("function"))
-		 (:file "stream" :depends-on ("function"))
-		 (:file "symbols" :depends-on ("function"))
-		 (:file "types" :depends-on ("function"))
-		 ))
+		 :str
+		 :lisp-unit)
+  :components ((:module "src"
+		:components ((:file "package")
+			     (:file "array" :depends-on ("function"))
+			     (:file "control-flow" :depends-on ("function"))
+			     (:file "function" :depends-on ("package"))
+			     (:file "hash-table" :depends-on ("function"))
+			     (:file "list" :depends-on ("function"))
+			     (:file "macro" :depends-on ("function"))
+			     (:file "number" :depends-on ("function"))
+			     (:file "sequence" :depends-on ("function"))
+			     (:file "stream" :depends-on ("function"))
+			     (:file "symbols" :depends-on ("function"))
+			     (:file "types" :depends-on ("function"))))
+	       (:module "test"
+		:serial t
+		:components ((:file "package")))
+	       ))
+			
+	       
+			
 			
