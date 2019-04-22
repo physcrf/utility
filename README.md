@@ -308,7 +308,7 @@ Examples:
 ```
 
 #### <span id="conjoin"> [function] conjoin (predicate &rest more-predicates) </span>
-Alias of `alexandria:disjoin`, returns a function that applies each of
+Alias of `alexandria:conjoin`, returns a function that applies each of
 `predicate` and `more-predicate` functions in turn to its arguments,
 returning `NIL` if any of the predicates returns false, without
 calling the remaining predicates. If none of the predicates returns
