@@ -1,5 +1,5 @@
 # utility
-[![Version Badge](https://img.shields.io/badge/version-1.3-brightgreen.svg)](https://github.com/physcrf/utility)
+[![Version Badge](https://img.shields.io/badge/version-1.4-brightgreen.svg)](https://github.com/physcrf/utility)
 
 My utility collection
 
@@ -141,6 +141,8 @@ professional libraries such as
 - [find-keyword](#find-keyword)
 ### [types](#types-ref)
 - [true](#true)
+- [coercef](#coercef)
+
 ## Function Reference
 ### <span id="array-ref"> array </span>
 #### <span id="indexes-to-row-major-index"> [Function] indexes-to-row-major-index (dimensions &rest subscripts) </span>
@@ -1062,3 +1064,5 @@ Examples:
 #### <span id="true"> [function] true (x) </span>
 Alias of `serapeum:true`, if `x` is `NIL`, return `NIL`, otherwise return `T`.
 
+#### <span id="coercef"> [macro] coercef (place type-spec) </span>
+Alias of `alexandria:coercef`, modify-macro for coerce. 

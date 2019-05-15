@@ -1,3 +1,6 @@
+* <2019-05-15>
+  + Add coercef from alexandria
+  + Version 1.3 -> Version 1.4
 * <2019-04-12>
   + Add with-input-file and with-output-file
   + Version 1.2 -> Version 1.3
